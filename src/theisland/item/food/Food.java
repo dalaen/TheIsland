@@ -11,7 +11,7 @@ public abstract class Food extends Item {
     private boolean isRotten;
     protected int lifetime;
     
-    void Food() {
+    Food() {
         lifetime = 0;
         isRotten = true;
     }
