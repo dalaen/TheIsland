@@ -9,7 +9,7 @@ import java.util.Random;
 public class ChickenLeg extends Food {
     private final int MAXIMUM_LIFETIME = 2;
     
-    public ChickenLeg() {
+    ChickenLeg() {
         setName("Chicken Leg");
         
         // Chance manipulation
@@ -19,7 +19,7 @@ public class ChickenLeg extends Food {
         int diceRoll = (new Random()).nextInt(100);
         if (diceRoll >= 20 && diceRoll < 80) {
             setLifetime(1, MAXIMUM_LIFETIME);
-        } else if (diceRoll >= 80 && diceRoll <= 100) {
+        } else if (diceRoll >= 80 && diceRoll < 100) {
             setLifetime(2, MAXIMUM_LIFETIME);
         } else {
             setLifetime(0, MAXIMUM_LIFETIME);
