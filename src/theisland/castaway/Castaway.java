@@ -32,7 +32,7 @@ public class Castaway {
         
         if(player1.moral <= 90)
         {
-            player1.moral = player1.moral + 10; 
+            player1.moral = player1.moral + 10;
         }
         else if(player1.moral > 90)
         {
