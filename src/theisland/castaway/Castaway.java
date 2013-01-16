@@ -2,6 +2,7 @@
 package theisland.castaway;
 
 import java.util.ArrayList;
+import java.util.Random;
 import theisland.item.Item;
 import theisland.gui.Gui;
 
@@ -18,35 +19,48 @@ public class Castaway {
     protected ArrayList<Item> inventory;  // Inventory between 0 and 25 items
     protected int affinity = 50;  // Affinity between 0 and 100
     
-    public void steal(Castaway player){
+    public void steal(Castaway thief, Castaway stolenPlayer){
         Item stolenItem;
         int inventorySize;
         
-        if(player.inventory.isEmpty())
+        if(stolenPlayer.inventory.isEmpty())
         {
-            Gui.display("hello");
-            // Apart from stealing her clothes, you can't take someting from this poor guy
+            Gui.display("Apart from stealing her clothes, you can't take someting from this poor guy");
+        }
+        if(thief.inventory.size() == 25)
+        {
+            Gui.display("Your inventory is already full");
         }
         else 
         {
-          inventorySize = player.inventory.size();
-          
-          //inventory.add(stolenItem);  
+          int itemNumber;
+          inventorySize = stolenPlayer.inventory.size();
+          itemNumber = (new Random()).nextInt(inventorySize + 1);
+          stolenItem = stolenPlayer.inventory.get(itemNumber);
+          thief.inventory.add(stolenItem);
+          stolenPlayer.inventory.remove(itemNumber);
         }
-        if(player.affinity <= 10)
+        if(stolenPlayer.affinity <= 10)
         {
-            player.affinity = 0;
+            stolenPlayer.affinity = 0;
         }
-        else if(player.affinity > 10)
+        else if(stolenPlayer.affinity > 10)
         {
-            player.affinity = player.affinity - 10;
+            stolenPlayer.affinity = stolenPlayer.affinity - 10;
         }
         
     }
     
-    public void kill(Castaway player){
-        player.health = 0;
-        player.energy = 0;
+    public void kill(Castaway killedPlayer, Castaway killer){
+        if(killedPlayer.energy < 10)
+        {
+        killedPlayer.health = 0;
+        killedPlayer.energy = 0;
+        }
+        else
+        {
+            Gui.display("Are you nuts ??!!");
+        }
     }
     
     public void take(){
