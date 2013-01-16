@@ -3,8 +3,8 @@ package theisland.castaway;
 
 import java.util.ArrayList;
 import java.util.Random;
-import theisland.item.Item;
 import theisland.gui.Gui;
+import theisland.item.Item;
 
 /**
  *
@@ -34,6 +34,7 @@ public class Castaway {
         else 
         {
           int itemNumber;
+          
           inventorySize = stolenPlayer.inventory.size();
           itemNumber = (new Random()).nextInt(inventorySize + 1);
           stolenItem = stolenPlayer.inventory.get(itemNumber);
@@ -52,10 +53,10 @@ public class Castaway {
     }
     
     public void kill(Castaway killedPlayer, Castaway killer){
-        if(killedPlayer.energy < 10)
+        if(killedPlayer.energy < 10 && killer.energy > 10)
         {
-        killedPlayer.health = 0;
-        killedPlayer.energy = 0;
+            killedPlayer.health = 0;
+            killedPlayer.energy = 0;
         }
         else
         {
