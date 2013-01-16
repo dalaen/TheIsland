@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package theisland.item;
 
 /**
@@ -22,5 +18,13 @@ public abstract class Item {
         if (name.length() >= 1 && name.length() <= 20) {
             this.name = name;
         }
+    }
+    
+    /*
+     * Return the item's name
+     * @return the item's name
+     */
+    public String getName() {
+        return name;
     }
 }
