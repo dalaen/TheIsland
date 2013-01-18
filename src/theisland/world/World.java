@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 import theisland.gui.Gui;
+import theisland.world.exception.TooFewCastaway;
+import theisland.world.exception.TooManyCastaway;
 
 /**
  *
@@ -26,9 +28,19 @@ public final class World {
         weather = Weather.STORM;
         dayNumber = 1;
         // Prompt the user for how many castaway he wanna play with
-        Gui.display("How many castaway are on the island? ");
+    	Gui.displayInline("How many castaway are on the island? ");
         int enteredNumber = SCANNER.nextInt();
-        setNumberOfCastaway(enteredNumber);
+        while (numberOfCastaway > MAXIMUM_CASTAWAY || numberOfCastaway < 2) {
+	        try {
+				setNumberOfCastaway(enteredNumber);
+			} catch (TooManyCastaway | TooFewCastaway e) {
+				Gui.displayError("You cannot either play with more than "+ MAXIMUM_CASTAWAY +" castaway, or play alone!");
+				// Prompts the user again
+				// TODO: fix display error
+	        	Gui.displayInline("How many castaway are on the island? ");
+	            enteredNumber = SCANNER.nextInt();
+			}
+        }
     }
     
     /*
@@ -77,9 +89,36 @@ public final class World {
      * Set the number of castaway
      * @param numberOfCastaway The number of castaway
      */
-    private void setNumberOfCastaway(int numberOfCastaway) {
-    	if (numberOfCastaway <= MAXIMUM_CASTAWAY) {
+    private void setNumberOfCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
+    	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
     		this.numberOfCastaway = numberOfCastaway;
+    	} else if (numberOfCastaway > MAXIMUM_CASTAWAY) {
+    		throw new TooManyCastaway();
+    	} else if (numberOfCastaway < 2) {
+    		throw new TooFewCastaway();
+    	}
+    }
+    
+    /*
+     * Gives the number of castaway left alive, including you
+     * @return The number of castaway left, including you
+     */
+    public int getNumberOfCastaway() {
+    	return numberOfCastaway;
+    }
+    
+    /*
+     * Prints the current weather
+     */
+    public void printWeather() {
+    	if (weather.equals(Weather.SUN)) {
+    		Gui.display("It is sunny today!");
+    	} else if (weather.equals(Weather.RAIN)) {
+    		Gui.display("It's raining a lot!");
+    	} else if (weather.equals(Weather.SNOW)) {
+    		Gui.display("The snow is falling in a hurling wind");
+    	} else if (weather.equals(Weather.STORM)) {
+    		Gui.display("Thunder is ramming the earth all round you, along with a heavy rain");
     	}
     }
     
