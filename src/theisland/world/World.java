@@ -1,17 +1,22 @@
 package theisland.world;
 
 import java.util.Random;
+import java.util.Scanner;
+
+import theisland.gui.Gui;
 
 /**
  *
  * @author Xavier
  */
 public final class World {
-    private static final World INSTANCE = new World();
+    private static final Scanner SCANNER = new Scanner(System.in);
+
+	private static final World INSTANCE = new World();
     
     private final int MAXIMUM_CASTAWAY = 6;
     private Weather weather;
-    private int numberOfInhabitant;
+    private int numberOfCastaway;
     private int dayNumber;
     
     /*
@@ -20,6 +25,10 @@ public final class World {
     private World() {
         weather = Weather.STORM;
         dayNumber = 1;
+        // Prompt the user for how many castaway he wanna play with
+        Gui.display("How many castaway are on the island? ");
+        int enteredNumber = SCANNER.nextInt();
+        setNumberOfCastaway(enteredNumber);
     }
     
     /*
@@ -62,5 +71,34 @@ public final class World {
      */
     public int getDayNumber() {
         return dayNumber;
+    }
+    
+    /*
+     * Set the number of castaway
+     * @param numberOfCastaway The number of castaway
+     */
+    private void setNumberOfCastaway(int numberOfCastaway) {
+    	if (numberOfCastaway <= MAXIMUM_CASTAWAY) {
+    		this.numberOfCastaway = numberOfCastaway;
+    	}
+    }
+    
+    /*
+     * Called when a castaway is gone
+     */
+    public void removeCastaway() {
+    	if (numberOfCastaway > 1) {
+    		numberOfCastaway--;
+    	}
+    	if (numberOfCastaway == 1) {
+    		endGame();
+    	}
+    }
+    
+    /*
+     * End of the game
+     */
+    private void endGame() {
+    	Gui.display("You won! :D");
     }
 }
