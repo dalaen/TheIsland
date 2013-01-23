@@ -25,11 +25,11 @@ public class Castaway {
         
         if(stolenPlayer.inventory.isEmpty())
         {
-            Gui.display("Apart from stealing her clothes, you can't take someting from this poor guy");
+            Gui.displayError("Apart from stealing her clothes, you can't take someting from this poor guy");
         }
         if(thief.inventory.size() == 25)
         {
-            Gui.display("Your inventory is already full");
+            Gui.displayError("Your inventory is already full");
         }
         else 
         {
@@ -40,7 +40,9 @@ public class Castaway {
           stolenItem = stolenPlayer.inventory.get(itemNumber);
           thief.inventory.add(stolenItem);
           stolenPlayer.inventory.remove(itemNumber);
+          Gui.display("The object has been stolen");
         }
+        
         if(stolenPlayer.affinity <= 10)
         {
             stolenPlayer.affinity = 0;
@@ -57,10 +59,11 @@ public class Castaway {
         {
             killedPlayer.health = 0;
             killedPlayer.energy = 0;
+            Gui.display("May he soul rest in Peace ...");
         }
         else
         {
-            Gui.display("Are you nuts ??!!");
+            Gui.displayError("Are you nuts ??!!");
         }
     }
     
@@ -97,16 +100,18 @@ public class Castaway {
             player1.affinity = 100;
         }
         
-        // Reste à créer une liste de dialogues possibles
-        
-        // - How are you ? 
-        // - I'm fine, what about you ? 
-        // - Me too, thanks !
-        
-        // - The weather is pretty good today
-        // - Ya, but I'm not motivated to do something ...
-        // - Worry, you'll feel better tomorrow
-        
+        if(player2.moral >= 50)
+        {
+            Gui.display("- How are you ? \t- I'm fine what about you ? \t- Me too, thanks ! ");
+        }
+        else if(player2.moral < 50 && player2.moral > 20)
+        {
+            Gui.display("- The weather is pretty good today \t- Ya, but I'm not motivated to do something ... \t- Worry, you'll feel better tomorrow ! ");
+        }
+        else if(player2.moral <= 20)
+        {
+            Gui.display("- You seem to be bad, you okay ?? \t- Yes, I'm tired of being here ... \t- Worry, you'll feel better soon!");
+        }
     }
     
     public void dealWith(){
