@@ -19,7 +19,19 @@ public class Castaway {
     protected ArrayList<Item> inventory;  // Inventory between 0 and 25 items
     protected int affinity = 50;  // Affinity between 0 and 100
     
-    public void steal(Castaway thief, Castaway stolenPlayer){
+    
+    public Castaway() {
+        
+    }
+    
+    public Castaway(String name) {
+        this.name = name;
+        inventory = new ArrayList<Item>();
+    }
+    
+    
+    
+    public void steal(Castaway stolenPlayer){
         Item stolenItem;
         int inventorySize;
         
@@ -27,7 +39,7 @@ public class Castaway {
         {
             Gui.displayError("Apart from stealing her clothes, you can't take something from this poor guy");
         }
-        if(thief.inventory.size() == 25)
+        if(this.inventory.size() == 25)
         {
             Gui.displayError("Your inventory is already full");
         }
@@ -38,7 +50,7 @@ public class Castaway {
           inventorySize = stolenPlayer.inventory.size();
           itemNumber = (new Random()).nextInt(inventorySize + 1);
           stolenItem = stolenPlayer.inventory.get(itemNumber);
-          thief.inventory.add(stolenItem);
+          this.inventory.add(stolenItem);
           stolenPlayer.inventory.remove(itemNumber);
           Gui.display("The object has been stolen :");
           Gui.display(stolenItem.getName());
