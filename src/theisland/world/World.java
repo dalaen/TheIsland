@@ -1,9 +1,13 @@
 package theisland.world;
 
+import java.io.File;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
+import theisland.castaway.Castaway;
 import theisland.gui.Gui;
+import theisland.world.exception.InvalidDayNumber;
 import theisland.world.exception.TooFewCastaway;
 import theisland.world.exception.TooManyCastaway;
 
@@ -17,6 +21,7 @@ public final class World {
 	private static final World INSTANCE = new World();
     
     private final int MAXIMUM_CASTAWAY = 6;
+    private Castaway[] castaways = new Castaway[MAXIMUM_CASTAWAY];
     private Weather weather;
     private int numberOfCastaway;
     private int dayNumber;
@@ -25,14 +30,22 @@ public final class World {
      * World Constructor
      */
     private World() {
+    	if ((new File("config.sav").exists())) {
+    		Gui.display("Config file exists");
+    	}
+    	
         weather = Weather.STORM;
         dayNumber = 1;
         // Prompt the user for how many castaway he wanna play with
     	Gui.displayInline("How many castaway are on the island? ");
-        int enteredNumber = SCANNER.nextInt();
+        promptCastawayNumber();
+    }
+    
+    private void promptCastawayNumber() {
+    	int enteredNumber = SCANNER.nextInt();
         while (numberOfCastaway > MAXIMUM_CASTAWAY || numberOfCastaway < 2) {
 	        try {
-				setNumberOfCastaway(enteredNumber);
+				initCastaway(enteredNumber);
 			} catch (TooManyCastaway | TooFewCastaway e) {
 				Gui.displayError("You cannot either play with more than "+ MAXIMUM_CASTAWAY +" castaway, or play alone!");
 				// Prompts the user again
@@ -53,10 +66,26 @@ public final class World {
     
     /*
      * Change the weather on the world
-     * @param weather New weather to set
+     * @param weather New weather to set from Weather enumeration
      */
     public void changeWeather(Weather weather) {
         this.weather = weather;
+    }
+    
+    /* 
+     * Change the weather on the world
+     * @param weather New weather to set from String
+     */
+    public void changeWeather(String weather) {
+    	if (weather.equalsIgnoreCase("rain")) {
+    		this.weather = Weather.RAIN;
+    	} else if (weather.equalsIgnoreCase("storm")) {
+    		this.weather = Weather.STORM;
+    	} else if (weather.equalsIgnoreCase("snow")) {
+    		this.weather = Weather.SNOW;
+    	} else if (weather.equalsIgnoreCase("sun")) {
+    		this.weather = Weather.SUN;
+    	}
     }
     
     /*
@@ -86,12 +115,54 @@ public final class World {
     }
     
     /*
-     * Set the number of castaway
+     * Set the day number
+     * @param dayNumber The new day number (used from Load class)
+     */
+    public void setDayNumber(int dayNumber) throws InvalidDayNumber {
+    	if (dayNumber > 0) {
+    		this.dayNumber = dayNumber;
+    	} else {
+    		throw new InvalidDayNumber();
+    	}
+    }
+    
+    /*
+     * Add a castaway to the world
+     * @param castaway The castaway character to add
+     */
+    public void addCastaway(Castaway castaway) throws TooManyCastaway {
+    	if (numberOfCastaway == MAXIMUM_CASTAWAY) {
+    		throw new TooManyCastaway();
+    	} else {
+    		castaways[numberOfCastaway] = castaway;
+    		numberOfCastaway++;
+    	}
+    }
+    
+    /*
+     * Give access to the castaway by its id
+     * @param id The castaway id (0 = hero)
+     * @return The castaway seeked
+     */
+    public Castaway getCastaway(int id) {
+    	if (id >= 0 && id < MAXIMUM_CASTAWAY) {
+    		return castaways[id];
+    	}
+		return null;
+    }
+    
+    /*
+     * Initialize the castaways
      * @param numberOfCastaway The number of castaway
      */
-    private void setNumberOfCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
+    public void initCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
     	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
-    		this.numberOfCastaway = numberOfCastaway;
+    		addCastaway(new Castaway("Hero"));
+    		
+    		int i;
+    		for (i = 1 ; i < numberOfCastaway ; i++) {
+    			addCastaway(new Castaway("John"+i));
+    		}
     	} else if (numberOfCastaway > MAXIMUM_CASTAWAY) {
     		throw new TooManyCastaway();
     	} else if (numberOfCastaway < 2) {
@@ -120,6 +191,14 @@ public final class World {
     	} else if (weather.equals(Weather.STORM)) {
     		Gui.display("Thunder is ramming the earth all round you, along with a heavy rain");
     	}
+    }
+    
+    /*
+     * Returns the current weather
+     * @return The current weather
+     */
+    public Weather getWeather() {
+    	return weather;
     }
     
     /*
