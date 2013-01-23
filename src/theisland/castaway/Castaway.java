@@ -40,7 +40,8 @@ public class Castaway {
           stolenItem = stolenPlayer.inventory.get(itemNumber);
           thief.inventory.add(stolenItem);
           stolenPlayer.inventory.remove(itemNumber);
-          Gui.display("The object has been stolen");
+          Gui.display("The object has been stolen :");
+          Gui.display(stolenItem.getName());
         }
         
         if(stolenPlayer.affinity <= 10)
@@ -114,8 +115,74 @@ public class Castaway {
         }
     }
     
-    public void dealWith(){
+    public void dealWith(Castaway player1, Castaway player2){
+        if(player1.moral <= 90)
+        {
+            player1.moral = player1.moral + 10;
+        }
+        else if(player1.moral > 90)
+        {
+            player1.moral = 100;
+        }
+        
+        if(player2.moral <= 90)
+        {
+            player2.moral = player2.moral + 10;
+        }
+        else if(player2.moral > 90)
+        {
+            player2.moral = 100;
+        }
+        
+        if(player1.affinity <= 90)
+        {
+            player1.affinity = player1.affinity + 10;
+        }
+        else if(player1.affinity > 90)
+        {
+            player1.affinity = 100;
+        }
+        
+        if(player1.inventory.isEmpty())
+        {
+            Gui.displayError("Apart from stealing her clothes, you can't take someting from this poor guy");
+        }
+        else 
+        {
+          int itemNumber;
+          
+          inventorySize = stolenPlayer.inventory.size();
+          itemNumber = (new Random()).nextInt(inventorySize + 1);
+          stolenItem = stolenPlayer.inventory.get(itemNumber);
+          thief.inventory.add(stolenItem);
+          stolenPlayer.inventory.remove(itemNumber);
+          Gui.display("The object has been stolen :");
+          Gui.display(stolenItem.getName());
+        }
         
     }
+    
+    public int getAffinity(){
+        return affinity;
+    }
+    public int getEnergy(){
+        return energy;
+    }
+    public int getHealth(){
+        return health;
+    }
+    public int getmoral(){
+        return moral;
+    }
+    public int getStress(){
+        return stress;
+    }
+    public String getName(){
+        return name;
+    }
+    public ArrayList getInventory(){
+        return inventory;
+    }
+    
 }
 
