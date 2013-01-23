@@ -3,6 +3,7 @@ package theisland.castaway;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 import theisland.gui.Gui;
 import theisland.item.Item;
 
@@ -19,7 +20,7 @@ public class Castaway {
     protected ArrayList<Item> inventory;  // Inventory between 0 and 25 items
     protected int affinity = 50;  // Affinity between 0 and 100
     
-    
+    private static final Scanner SCANNER = new Scanner(System.in);
     public Castaway() {
         
     }
@@ -127,7 +128,7 @@ public class Castaway {
         }
     }
     
-    public void dealWith(Castaway player1, Castaway player2){
+    public void dealWith(Castaway player1){
         if(player1.moral <= 90)
         {
             player1.moral = player1.moral + 10;
@@ -137,13 +138,13 @@ public class Castaway {
             player1.moral = 100;
         }
         
-        if(player2.moral <= 90)
+        if(this.moral <= 90)
         {
-            player2.moral = player2.moral + 10;
+            this.moral = this.moral + 10;
         }
-        else if(player2.moral > 90)
+        else if(this.moral > 90)
         {
-            player2.moral = 100;
+            this.moral = 100;
         }
         
         if(player1.affinity <= 90)
@@ -171,14 +172,27 @@ public class Castaway {
           
           Gui.display("This castaway offers exchange:");
           Gui.display(exchangedItem.getName());
-          Gui.display("Do you accept ? Say yes to accept, an other thing to deny");
+          Gui.display("Do you accept ? Say Yes to accept, No to deny");
           
-          ///////////////
-          
-          player2.inventory.add(exchangedItem);
+          String answer = SCANNER.next();
+          while (answer.contentEquals("Yes") || answer.contentEquals("No")) {
+	        
+            Gui.displayInline("Yes or No !");
+	    answer = SCANNER.next();
+            }
+          if(answer.contentEquals("Yes")){
+              Gui.display("Enter the number of the object you want to exchange");
+              int answerInt = SCANNER.nextInt();
+              while(answerInt <= 0 || answerInt > this.inventory.size()){
+                  Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
+              }
+          this.inventory.add(exchangedItem);
           player1.inventory.remove(itemNumber);
-          Gui.display("Your object was exchanged with:");
-          Gui.display(exchangedItem.getName());
+          exchangedItem = this.inventory.get(answerInt);
+          player1.inventory.add(exchangedItem);
+          this.inventory.remove(answerInt);
+          Gui.display("Exchange done");
+          }
         }
         
     }
