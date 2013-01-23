@@ -25,7 +25,7 @@ public class Castaway {
         
         if(stolenPlayer.inventory.isEmpty())
         {
-            Gui.displayError("Apart from stealing her clothes, you can't take someting from this poor guy");
+            Gui.displayError("Apart from stealing her clothes, you can't take something from this poor guy");
         }
         if(thief.inventory.size() == 25)
         {
@@ -145,19 +145,28 @@ public class Castaway {
         
         if(player1.inventory.isEmpty())
         {
-            Gui.displayError("Apart from stealing her clothes, you can't take someting from this poor guy");
+            Gui.displayError("Apart from exchanging her clothes, you can't exchange something with this poor guy");
         }
         else 
         {
           int itemNumber;
+          Item exchangedItem;
           
-          inventorySize = stolenPlayer.inventory.size();
+          int inventorySize;
+          inventorySize = player1.inventory.size();
           itemNumber = (new Random()).nextInt(inventorySize + 1);
-          stolenItem = stolenPlayer.inventory.get(itemNumber);
-          thief.inventory.add(stolenItem);
-          stolenPlayer.inventory.remove(itemNumber);
-          Gui.display("The object has been stolen :");
-          Gui.display(stolenItem.getName());
+          exchangedItem = player1.inventory.get(itemNumber);
+          
+          Gui.display("This castaway offers exchange:");
+          Gui.display(exchangedItem.getName());
+          Gui.display("Do you accept ? Say yes to accept, an other thing to deny");
+          
+          ///////////////
+          
+          player2.inventory.add(exchangedItem);
+          player1.inventory.remove(itemNumber);
+          Gui.display("Your object was exchanged with:");
+          Gui.display(exchangedItem.getName());
         }
         
     }
@@ -171,7 +180,7 @@ public class Castaway {
     public int getHealth(){
         return health;
     }
-    public int getmoral(){
+    public int getMoral(){
         return moral;
     }
     public int getStress(){
