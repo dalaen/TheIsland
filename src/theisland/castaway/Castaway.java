@@ -9,7 +9,7 @@ import theisland.item.Item;
 
 /**
  *
- * @author isen
+ * @author jeremy
  */
 public class Castaway {
     protected int health = 100;    // Health between 0 and 100
@@ -68,8 +68,8 @@ public class Castaway {
         
     }
     
-    public void kill(Castaway killedPlayer, Castaway killer){
-        if(killedPlayer.energy < 10 && killer.energy > 10)
+    public void kill(Castaway killedPlayer){
+        if(killedPlayer.energy < 10 && this.energy > 10)
         {
             killedPlayer.health = 0;
             killedPlayer.energy = 0;
@@ -85,7 +85,16 @@ public class Castaway {
         
     }
     
-    public void speakTo(Castaway player1, Castaway player2){
+    public void speakTo(Castaway player1){
+        
+        if(this.moral <= 90)
+        {
+            this.moral = this.moral + 10;
+        }
+        else if(this.moral > 90)
+        {
+            this.moral = 100;
+        }
         
         if(player1.moral <= 90)
         {
@@ -94,15 +103,6 @@ public class Castaway {
         else if(player1.moral > 90)
         {
             player1.moral = 100;
-        }
-        
-        if(player2.moral <= 90)
-        {
-            player2.moral = player2.moral + 10;
-        }
-        else if(player2.moral > 90)
-        {
-            player2.moral = 100;
         }
         
         if(player1.affinity <= 90)
@@ -114,15 +114,15 @@ public class Castaway {
             player1.affinity = 100;
         }
         
-        if(player2.moral >= 50)
+        if(player1.moral >= 50)
         {
             Gui.display("- How are you ? \t- I'm fine what about you ? \t- Me too, thanks ! ");
         }
-        else if(player2.moral < 50 && player2.moral > 20)
+        else if(player1.moral < 50 && player1.moral > 20)
         {
             Gui.display("- The weather is pretty good today \t- Ya, but I'm not motivated to do something ... \t- Worry, you'll feel better tomorrow ! ");
         }
-        else if(player2.moral <= 20)
+        else if(player1.moral <= 20)
         {
             Gui.display("- You seem to be bad, you okay ?? \t- Yes, I'm tired of being here ... \t- Worry, you'll feel better soon!");
         }
