@@ -41,7 +41,7 @@ public class Castaway {
         NAMES.add("CLAUDETTE");
         NAMES.add("GEORGETTE");
         numberOfNames = NAMES.size();
-        nameNumber = (new Random()).nextInt(numberOfNames + 1);
+        nameNumber = (new Random()).nextInt(numberOfNames - 1);
         this.name = NAMES.get(nameNumber);
         inventory = new ArrayList<>();
         this.isHero = isHero;
