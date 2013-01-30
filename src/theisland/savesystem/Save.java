@@ -25,7 +25,14 @@ public final class Save {
 	 * @param character: the character's data to save
 	 */
 	public void saveCharacterData(Castaway character) {
-		String prefix = character.getName().toLowerCase() + ".";
+		String prefix;
+		
+		if (character.isHero()) {
+			prefix = "hero.";
+		} else {
+			// TODO: Include all castaway_, not only the first one
+			prefix = "castaway_1.";
+		}
 		save.setProperty(prefix + "name", character.getName());
 		save.setProperty(prefix + "health", new Integer(character.getHealth()).toString());
 		save.setProperty(prefix + "stress", new Integer(character.getStress()).toString());
