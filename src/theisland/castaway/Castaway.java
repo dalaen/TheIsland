@@ -4,6 +4,9 @@ package theisland.castaway;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import theisland.castaway.exception.*;
 import theisland.gui.Gui;
 import theisland.item.Item;
 
@@ -25,12 +28,26 @@ public class Castaway {
     
     private static final Scanner SCANNER = new Scanner(System.in);
     public Castaway() {
+        int numberOfNames;    
+        int nameNumber;
         NAMES.add("MICHEL");
+        NAMES.add("ALFRED");
+        NAMES.add("JOSEPH");
+        NAMES.add("JEAN-MARIE");
+        NAMES.add("JEAN-CLAUDE");
+        NAMES.add("MICHELINE");
+        NAMES.add("ALPHONSE");
+        NAMES.add("CLAUDETTE");
+        NAMES.add("GEORGETTE");
+        numberOfNames = NAMES.size();
+        nameNumber = (new Random()).nextInt(numberOfNames + 1);
+        this.name = NAMES.get(nameNumber);
+        inventory = new ArrayList<>();
     }
     
     public Castaway(String name) {
         this.name = name;
-        inventory = new ArrayList<Item>();
+        inventory = new ArrayList<>();
     }
     
     
@@ -62,11 +79,19 @@ public class Castaway {
         
         if(stolenPlayer.affinity <= 10)
         {
-            stolenPlayer.setAffinity(0);
+            try {
+                stolenPlayer.setAffinity(0);
+            } catch (AffinityOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(stolenPlayer.affinity > 10)
         {
-            stolenPlayer.setAffinity(stolenPlayer.affinity - 10);
+            try {
+                stolenPlayer.setAffinity(stolenPlayer.affinity - 10);
+            } catch (AffinityOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }
@@ -74,8 +99,16 @@ public class Castaway {
     public void kill(Castaway killedPlayer){
         if(killedPlayer.energy < 10 && this.energy > 10)
         {
-            killedPlayer.setHealth(0);
-            killedPlayer.setEnergy(0);
+            try {
+                killedPlayer.setHealth(0);
+            } catch (HealthOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                killedPlayer.setEnergy(0);
+            } catch (EnergyOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Gui.display("May he soul rest in Peace ...");
         }
         else
@@ -92,29 +125,53 @@ public class Castaway {
         
         if(this.moral <= 90)
         {
-            this.setMoral(this.moral + 10);
+            try {
+                this.setMoral(this.moral + 10);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(this.moral > 90)
         {
-            this.setMoral(100);
+            try {
+                this.setMoral(100);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(player1.moral <= 90)
         {
-            player1.setMoral(player1.moral + 10);
+            try {
+                player1.setMoral(player1.moral + 10);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(player1.moral > 90)
         {
-            player1.setMoral(100);
+            try {
+                player1.setMoral(100);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(player1.affinity <= 90)
         {
-            player1.setAffinity(player1.affinity + 10);
+            try {
+                player1.setAffinity(player1.affinity + 10);
+            } catch (AffinityOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(player1.affinity > 90)
         {
-            player1.setAffinity(100);
+            try {
+                player1.setAffinity(100);
+            } catch (AffinityOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(player1.moral >= 50)
@@ -134,29 +191,53 @@ public class Castaway {
     public void dealWith(Castaway player1){
         if(player1.moral <= 90)
         {
-            player1.setMoral(player1.moral + 10);
+            try {
+                player1.setMoral(player1.moral + 10);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(player1.moral > 90)
         {
-            player1.setMoral(100);
+            try {
+                player1.setMoral(100);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(this.moral <= 90)
         {
-            this.setMoral(this.moral + 10);
+            try {
+                this.setMoral(this.moral + 10);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(this.moral > 90)
         {
-            this.setMoral(100);
+            try {
+                this.setMoral(100);
+            } catch (MoralOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(player1.affinity <= 90)
         {
-            player1.setAffinity(player1.affinity + 10);
+            try {
+                player1.setAffinity(player1.affinity + 10);
+            } catch (AffinityOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(player1.affinity > 90)
         {
-            player1.setAffinity(100);
+            try {
+                player1.setAffinity(100);
+            } catch (AffinityOutOfRange ex) {
+                Logger.getLogger(Castaway.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(player1.inventory.isEmpty())
@@ -225,51 +306,82 @@ public class Castaway {
     /**
      * @param health the health to set
      */
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(int health) throws HealthOutOfRange {
+        if (health >= 0 && health <= 100) {
+            this.health = health;
+        } else {
+            throw new HealthOutOfRange();
+        }
+       
     }
 
     /**
      * @param stress the stress to set
      */
-    public void setStress(int stress) {
-        this.stress = stress;
+    public void setStress(int stress) throws StressOutOfRange {
+        if(stress >= 0 && stress <= 100){
+            this.stress = stress;
+        } else {
+            throw new StressOutOfRange();
+        }
     }
 
     /**
      * @param energy the energy to set
      */
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public void setEnergy(int energy) throws EnergyOutOfRange {
+        if(energy >= 0 && energy <= 100){
+            this.energy = energy;
+        } else {
+            throw new EnergyOutOfRange();
+        }
     }
 
     /**
      * @param moral the moral to set
      */
-    public void setMoral(int moral) {
-        this.moral = moral;
+    public void setMoral(int moral) throws MoralOutOfRange {
+        if(moral >= 0 && moral <= 100){
+            this.moral = moral;
+        } else {
+            throw new MoralOutOfRange();
+        }
     }
 
     /**
      * @param name the name to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws NameOutOfRange {
+        if(name.length() >= 1 && name.length() <= 20) {
+            this.name = name;
+        } else {
+            throw new NameOutOfRange();
+        }
     }
 
     /**
      * @param inventory the inventory to set
      */
-    public void setInventory(ArrayList<Item> inventory) {
-        this.inventory = inventory;
+    public void setInventory(ArrayList<Item> inventory) throws InventoryOutOfRange {
+        if(inventory.size() >= 0 && inventory.size() <= 25){
+            this.inventory = inventory;
+        } else {
+            throw new InventoryOutOfRange();
+        }
     }
 
     /**
      * @param affinity the affinity to set
      */
-    public void setAffinity(int affinity) {
-        this.affinity = affinity;
-    }
+    public void setAffinity(int affinity) throws AffinityOutOfRange {
+        if(affinity >=0 && affinity <= 100){
+            this.affinity = affinity;
+        } else {
+            throw new AffinityOutOfRange();
+        }
     
 }
+    }
+    
+
 
