@@ -1,15 +1,13 @@
 package theisland.world;
 
 import java.io.File;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
 import theisland.castaway.Castaway;
 import theisland.gui.Gui;
-import theisland.world.exception.InvalidDayNumber;
-import theisland.world.exception.TooFewCastaway;
-import theisland.world.exception.TooManyCastaway;
+import theisland.savesystem.Load;
+import theisland.world.exception.*;
 
 /**
  *
@@ -30,15 +28,19 @@ public final class World {
      * World Constructor
      */
     private World() {
+    }
+    
+    public void createWorld() {
     	if ((new File("config.sav").exists())) {
     		Gui.display("Config file exists");
+    		Load.getInstance().load();
+    	} else {
+    		weather = Weather.STORM;
+            dayNumber = 1;
+            // Prompt the user for how many castaway he wanna play with
+        	Gui.displayInline("How many castaway are on the island? ");
+            promptCastawayNumber();
     	}
-    	
-        weather = Weather.STORM;
-        dayNumber = 1;
-        // Prompt the user for how many castaway he wanna play with
-    	Gui.displayInline("How many castaway are on the island? ");
-        promptCastawayNumber();
     }
     
     private void promptCastawayNumber() {
@@ -157,11 +159,12 @@ public final class World {
      */
     public void initCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
     	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
-    		addCastaway(new Castaway("Hero"));
+    		addCastaway(new Castaway("Hero", true));
     		
     		int i;
     		for (i = 1 ; i < numberOfCastaway ; i++) {
-    			addCastaway(new Castaway("John"+i));
+    			// TODO: NO!!!!!
+    			addCastaway(new Castaway("castaway_"+i, false));
     		}
     	} else if (numberOfCastaway > MAXIMUM_CASTAWAY) {
     		throw new TooManyCastaway();
