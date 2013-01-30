@@ -12,17 +12,20 @@ import theisland.item.Item;
  * @author jeremy
  */
 public class Castaway {
-    protected int health = 100;    // Health between 0 and 100
-    protected int stress = 0;    // Stress between 0 and 100
-    protected int energy = 100;    // Energy between 0 and 100
-    protected int moral = 100;     // Moral between 0 and 100
-    protected String name;   // Name between 1 and 20 characters
-    protected ArrayList<Item> inventory;  // Inventory between 0 and 25 items
-    protected int affinity = 50;  // Affinity between 0 and 100
+    private int health = 100;    // Health between 0 and 100
+    private int stress = 0;    // Stress between 0 and 100
+    private int energy = 100;    // Energy between 0 and 100
+    private int moral = 100;     // Moral between 0 and 100
+    private String name;   // Name between 1 and 20 characters
+    private ArrayList<Item> inventory;  // Inventory between 0 and 25 items
+    private int affinity = 50;  // Affinity between 0 and 100
+    
+    protected final ArrayList<String> NAMES = new ArrayList<String>(); //Possible names 
+    
     
     private static final Scanner SCANNER = new Scanner(System.in);
     public Castaway() {
-        
+        NAMES.add("MICHEL");
     }
     
     public Castaway(String name) {
@@ -59,11 +62,11 @@ public class Castaway {
         
         if(stolenPlayer.affinity <= 10)
         {
-            stolenPlayer.affinity = 0;
+            stolenPlayer.setAffinity(0);
         }
         else if(stolenPlayer.affinity > 10)
         {
-            stolenPlayer.affinity = stolenPlayer.affinity - 10;
+            stolenPlayer.setAffinity(stolenPlayer.affinity - 10);
         }
         
     }
@@ -71,8 +74,8 @@ public class Castaway {
     public void kill(Castaway killedPlayer){
         if(killedPlayer.energy < 10 && this.energy > 10)
         {
-            killedPlayer.health = 0;
-            killedPlayer.energy = 0;
+            killedPlayer.setHealth(0);
+            killedPlayer.setEnergy(0);
             Gui.display("May he soul rest in Peace ...");
         }
         else
@@ -89,29 +92,29 @@ public class Castaway {
         
         if(this.moral <= 90)
         {
-            this.moral = this.moral + 10;
+            this.setMoral(this.moral + 10);
         }
         else if(this.moral > 90)
         {
-            this.moral = 100;
+            this.setMoral(100);
         }
         
         if(player1.moral <= 90)
         {
-            player1.moral = player1.moral + 10;
+            player1.setMoral(player1.moral + 10);
         }
         else if(player1.moral > 90)
         {
-            player1.moral = 100;
+            player1.setMoral(100);
         }
         
         if(player1.affinity <= 90)
         {
-            player1.affinity = player1.affinity + 10;
+            player1.setAffinity(player1.affinity + 10);
         }
         else if(player1.affinity > 90)
         {
-            player1.affinity = 100;
+            player1.setAffinity(100);
         }
         
         if(player1.moral >= 50)
@@ -131,29 +134,29 @@ public class Castaway {
     public void dealWith(Castaway player1){
         if(player1.moral <= 90)
         {
-            player1.moral = player1.moral + 10;
+            player1.setMoral(player1.moral + 10);
         }
         else if(player1.moral > 90)
         {
-            player1.moral = 100;
+            player1.setMoral(100);
         }
         
         if(this.moral <= 90)
         {
-            this.moral = this.moral + 10;
+            this.setMoral(this.moral + 10);
         }
         else if(this.moral > 90)
         {
-            this.moral = 100;
+            this.setMoral(100);
         }
         
         if(player1.affinity <= 90)
         {
-            player1.affinity = player1.affinity + 10;
+            player1.setAffinity(player1.affinity + 10);
         }
         else if(player1.affinity > 90)
         {
-            player1.affinity = 100;
+            player1.setAffinity(100);
         }
         
         if(player1.inventory.isEmpty())
@@ -217,6 +220,55 @@ public class Castaway {
     }
     public ArrayList getInventory(){
         return inventory;
+    }
+
+    /**
+     * @param health the health to set
+     */
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    /**
+     * @param stress the stress to set
+     */
+    public void setStress(int stress) {
+        this.stress = stress;
+    }
+
+    /**
+     * @param energy the energy to set
+     */
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    /**
+     * @param moral the moral to set
+     */
+    public void setMoral(int moral) {
+        this.moral = moral;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @param inventory the inventory to set
+     */
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = inventory;
+    }
+
+    /**
+     * @param affinity the affinity to set
+     */
+    public void setAffinity(int affinity) {
+        this.affinity = affinity;
     }
     
 }
