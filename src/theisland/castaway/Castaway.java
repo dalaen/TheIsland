@@ -50,7 +50,10 @@ public class Castaway {
         inventory = new ArrayList<>();
     }
     
-    
+    public void addItemToInventory(Item item)
+    {
+        this.inventory.add(item);
+    }
     
     public void steal(Castaway stolenPlayer){
         Item stolenItem;
