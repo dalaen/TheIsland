@@ -22,12 +22,13 @@ public class Castaway {
     private String name;   // Name between 1 and 20 characters
     private ArrayList<Item> inventory;  // Inventory between 0 and 25 items
     private int affinity = 50;  // Affinity between 0 and 100
+    private boolean isHero;
     
-    protected final ArrayList<String> NAMES = new ArrayList<String>(); //Possible names 
+    protected final ArrayList<String> NAMES = new ArrayList<>(); //Possible names 
     
     
     private static final Scanner SCANNER = new Scanner(System.in);
-    public Castaway() {
+    public Castaway(boolean isHero) {
         int numberOfNames;    
         int nameNumber;
         NAMES.add("MICHEL");
@@ -43,11 +44,13 @@ public class Castaway {
         nameNumber = (new Random()).nextInt(numberOfNames + 1);
         this.name = NAMES.get(nameNumber);
         inventory = new ArrayList<>();
+        this.isHero = isHero;
     }
     
-    public Castaway(String name) {
+    public Castaway(String name, boolean isHero) {
         this.name = name;
         inventory = new ArrayList<>();
+        this.isHero = isHero;
     }
     
     public void addItemToInventory(Item item)
@@ -284,6 +287,10 @@ public class Castaway {
         
     }
     
+    public boolean isHero(){
+        return isHero;
+    }
+    
     public int getAffinity(){
         return affinity;
     }
@@ -305,6 +312,7 @@ public class Castaway {
     public ArrayList getInventory(){
         return inventory;
     }
+    
 
     /**
      * @param health the health to set
