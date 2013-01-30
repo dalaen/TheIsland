@@ -9,7 +9,7 @@ import java.util.Random;
 public class ChickenLeg extends Food {
     private final int MAXIMUM_LIFETIME = 2;
     
-    ChickenLeg() {
+    public ChickenLeg() {
         setName("Chicken Leg");
         
         // Chance manipulation
