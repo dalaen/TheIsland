@@ -24,14 +24,14 @@ public final class Save {
 	 * Save and write in configuration file the data of a character
 	 * @param character: the character's data to save
 	 */
-	public void saveCharacterData(Castaway character) {
+	public void saveCharacterData(Castaway character, int characterId) {
 		String prefix;
 		
 		if (character.isHero()) {
 			prefix = "hero.";
 		} else {
 			// TODO: Include all castaway_, not only the first one
-			prefix = "castaway_1.";
+			prefix = "castaway_" + characterId + ".";
 		}
 		save.setProperty(prefix + "name", character.getName());
 		save.setProperty(prefix + "health", new Integer(character.getHealth()).toString());

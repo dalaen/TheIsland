@@ -1,11 +1,8 @@
 package theisland;
 
-import theisland.castaway.Castaway;
 import theisland.gui.Gui;
-import theisland.item.food.ChickenLeg;
 import theisland.savesystem.Save;
 import theisland.world.World;
-import theisland.world.exception.TooManyCastaway;
 
 /**
  *
@@ -19,8 +16,6 @@ public class TheIsland {
     public static void main(String[] args) {
         World.getInstance().createWorld();
         
-        //World.getInstance().getCastaway(0).getInventory().add(new ChickenLeg());
-        
         Save.getInstance().saveWorldData(World.getInstance());
         
         Gui.display("There are "+ World.getInstance().getNumberOfCastaway() + " castaway on your island.");
@@ -28,13 +23,8 @@ public class TheIsland {
         World.getInstance().nextDay();
         World.getInstance().printWeather();
         
-//        try {
-//			World.getInstance().addCastaway(new Castaway("Hero"));
-//		} catch (TooManyCastaway e) {
-//			Gui.displayError("There is already too much castaway!");
-//			e.printStackTrace();
-//		}
-        Save.getInstance().saveCharacterData(World.getInstance().getCastaway(0));
-        Save.getInstance().saveCharacterData(World.getInstance().getCastaway(1));
+        for (int i = 0 ; i < World.getInstance().getNumberOfCastaway() ; i++) {
+        	Save.getInstance().saveCharacterData(World.getInstance().getCastaway(i), i);
+        }
     }
 }
