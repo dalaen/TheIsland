@@ -10,7 +10,7 @@ public class Mushroom extends Food {
     private final int MAXIMUM_LIFETIME = 4;
     private final String[] MUSHROOM_POSSIBILITIES = {"Champignon de Paris", "Morille"};
     
-    Mushroom() {
+    public Mushroom() {
         int diceRoll;
         
         diceRoll = (new Random()).nextInt(MUSHROOM_POSSIBILITIES.length);
