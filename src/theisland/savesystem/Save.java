@@ -16,6 +16,7 @@ import theisland.world.World;
 
 public final class Save {
 	private final static Save INSTANCE = new Save();
+	private final String SAVE_FILENAME = "config.sav";
 	private static Properties save = new Properties();
 	private FileWriter configFile;
 	
@@ -85,7 +86,7 @@ public final class Save {
 	
 	private void write() {
 		try {
-			configFile = new FileWriter("config.sav", false);
+			configFile = new FileWriter(SAVE_FILENAME, false);
 		} catch (IOException e) {
 			Gui.displayError("The config file cannot be opened.");
 			e.printStackTrace();

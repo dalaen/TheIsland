@@ -1,11 +1,9 @@
 package theisland.savesystem;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 import theisland.castaway.Castaway;
@@ -19,11 +17,11 @@ import theisland.gui.Gui;
 import theisland.item.Item;
 import theisland.world.World;
 import theisland.world.exception.InvalidDayNumber;
-import theisland.world.exception.TooFewCastaway;
 import theisland.world.exception.TooManyCastaway;
 
 public final class Load {
 	private final static Load INSTANCE = new Load();
+	private final String SAVE_FILENAME = "config.sav";
 	private static Properties save = new Properties();
 	private FileReader configFile;
 	
@@ -40,7 +38,7 @@ public final class Load {
 	 */
 	public boolean load() {
 		try {
-			configFile = new FileReader("config.sav");
+			configFile = new FileReader(SAVE_FILENAME);
 		} catch (IOException e) {
 			Gui.displayError("The config file cannot be written");
 			e.printStackTrace();
