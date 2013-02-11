@@ -1,7 +1,11 @@
 package theisland.savesystem;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 import theisland.castaway.Castaway;
@@ -12,6 +16,7 @@ import theisland.castaway.exception.MoralOutOfRange;
 import theisland.castaway.exception.NameOutOfRange;
 import theisland.castaway.exception.StressOutOfRange;
 import theisland.gui.Gui;
+import theisland.item.Item;
 import theisland.world.World;
 import theisland.world.exception.InvalidDayNumber;
 import theisland.world.exception.TooFewCastaway;
@@ -156,9 +161,33 @@ public final class Load {
 		} else {
 			return true;
 		}
-		// TODO: Inventory handling, see what separe each item [item;item] [item,item] [item:item] ??
+		
 		// -- Inventory
-		//ArrayList<Item> inventory = new ArrayList<Item>();
+		String savedInventory = null;
+		if (save.containsKey(prefix + "inventory")) {
+			savedInventory = save.getProperty(prefix + "inventory");
+		}
+		
+		if (!savedInventory.isEmpty()) {
+			final String SEPARATION_CHAR = "£";
+			String[] inventoryContent = savedInventory.split(SEPARATION_CHAR);
+			for (String s : inventoryContent) {
+				ByteArrayInputStream inventoryIn = new ByteArrayInputStream(s.getBytes()); // Bug here on s[1]
+				ObjectInputStream iStream = null;
+				try {
+					iStream = new ObjectInputStream(inventoryIn);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // Let's prepare our inventory...
+				try {
+					hero.addItemToInventory((Item) iStream.readObject());
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		try {
 			World.getInstance().addCastaway(hero);

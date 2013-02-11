@@ -1,10 +1,12 @@
 package theisland.item;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Xavier
  */
-public abstract class Item {
+public abstract class Item implements Serializable {
     private String name;
     
     // Eat the item. If the item is not eatable, this must produce a message!
