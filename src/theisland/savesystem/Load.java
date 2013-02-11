@@ -33,8 +33,9 @@ public final class Load {
 	}
 	
 	/**
-	 * Load from configuration file
-	 * @return true if loading has been correctly fulfilled, false if any mistake occured
+	 * Load data from configuration file
+	 * 
+	 * @return true if any mistake occured, false otherwise
 	 */
 	public boolean load() {
 		try {

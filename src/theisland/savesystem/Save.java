@@ -1,9 +1,6 @@
 package theisland.savesystem;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -27,9 +24,11 @@ public final class Save {
 		return INSTANCE;
 	}
 	
-	/*
-	 * Save and write in configuration file the data of a character
-	 * @param character: the character's data to save
+	/**
+	 * Save and write the data of a character in the configuration file
+	 * 
+	 * @param character the character's data to save
+	 * @param characterId the character's id in the big characters array
 	 */
 	private void saveCharacterData(Castaway character, int characterId) {
 		String prefix;
@@ -70,12 +69,22 @@ public final class Save {
 		write();
 	}
 
+	/**
+	 * Save all the characters of the game
+	 * 
+	 * @param world link to the current world the game is playing in
+	 */
 	public void saveAllCharacterData(World world) {
 		for (int i = 0 ; i < world.getNumberOfCastaway() ; i++) {
 			saveCharacterData(world.getCastaway(i), i);
 		}
 	}
 	
+	/**
+	 * Save the world data
+	 * 
+	 * @param world link to the current world to save
+	 */
 	public void saveWorldData(World world) {
 		save.setProperty("world.weather", world.getWeather().toString());
 		save.setProperty("world.numberOfCastaway", new Integer(world.getNumberOfCastaway()).toString());
