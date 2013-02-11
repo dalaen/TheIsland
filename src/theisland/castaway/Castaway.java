@@ -309,7 +309,7 @@ public class Castaway {
     public String getName(){
         return name;
     }
-    public ArrayList getInventory(){
+    public ArrayList<Item> getInventory(){
         return inventory;
     }
     
