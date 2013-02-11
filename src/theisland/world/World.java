@@ -20,9 +20,9 @@ public final class World {
     
     private final int MAXIMUM_CASTAWAY = 6;
     private Castaway[] castaways = new Castaway[MAXIMUM_CASTAWAY];
-    private Weather weather;
+    private Weather weather = Weather.STORM;
     private int numberOfCastaway;
-    private int dayNumber;
+    private int dayNumber = 1;
     
     /*
      * World Constructor
@@ -31,20 +31,23 @@ public final class World {
     }
     
     public void createWorld() {
+        boolean saveCorrupted = false;
     	if ((new File("config.sav").exists())) {
+    		// Load previous game
     		Gui.display("Config file exists");
-    		Load.getInstance().load();
-    	} else {
-    		weather = Weather.STORM;
-            dayNumber = 1;
-            // Prompt the user for how many castaway he wanna play with
-        	Gui.displayInline("How many castaway are on the island? ");
+    		saveCorrupted = Load.getInstance().load();
+    	} 
+    	if (saveCorrupted || !(new File("config.sav").exists())) {
+            // New game
             promptCastawayNumber();
     	}
     }
     
     private void promptCastawayNumber() {
+    	Gui.displayInline("How many castaway are on the island? ");
+    	
     	int enteredNumber = SCANNER.nextInt();
+    	
         while (numberOfCastaway > MAXIMUM_CASTAWAY || numberOfCastaway < 2) {
 	        try {
 				initCastaway(enteredNumber);
