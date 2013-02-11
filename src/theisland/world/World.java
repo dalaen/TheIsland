@@ -23,23 +23,28 @@ public final class World {
     private Weather weather = Weather.STORM;
     private int numberOfCastaway;
     private int dayNumber = 1;
+    private static boolean worldCreated = false;
     
-    /*
-     * World Constructor
-     */
     private World() {
     }
     
+    /**
+     * This function is called upon world creation
+     */
     public void createWorld() {
-        boolean saveCorrupted = false;
-    	if ((new File("config.sav").exists())) {
-    		// Load previous game
-    		Gui.display("Config file exists");
-    		saveCorrupted = Load.getInstance().load();
-    	} 
-    	if (saveCorrupted || !(new File("config.sav").exists())) {
-            // New game
-            promptCastawayNumber();
+    	if (!worldCreated) {
+	        boolean saveCorrupted = false;
+	    	if ((new File("config.sav").exists())) {
+	    		// Load previous game
+	    		Gui.display("Config file exists");
+	    		saveCorrupted = Load.getInstance().load();
+	    	} 
+	    	if (saveCorrupted || !(new File("config.sav").exists())) {
+	            // New game
+	            promptCastawayNumber();
+	    	}
+	    	
+	    	worldCreated = true;
     	}
     }
     
@@ -61,15 +66,11 @@ public final class World {
         }
     }
     
-    /*
-     * Gives the instance of the World, to use it
-     * @return Return the World Instance
-     */
     public static World getInstance() {
         return INSTANCE;
     }
     
-    /*
+    /**
      * Change the weather on the world
      * @param weather New weather to set from Weather enumeration
      */
@@ -77,7 +78,7 @@ public final class World {
         this.weather = weather;
     }
     
-    /* 
+    /**
      * Change the weather on the world
      * @param weather New weather to set from String
      */
@@ -93,7 +94,7 @@ public final class World {
     	}
     }
     
-    /*
+    /**
      * Process the events to get to the next day
      */
     public void nextDay() {
@@ -111,29 +112,31 @@ public final class World {
         dayNumber++;
     }
     
-    /*
+    /**
      * Gives the day we are in
-     * @return Returns the dayNumber (day one: 1, etc.)
+     * @return the day number (day one: 1, etc.)
      */
     public int getDayNumber() {
         return dayNumber;
     }
     
-    /*
-     * Set the day number
-     * @param dayNumber The new day number (used from Load class)
+    /**
+     * Set the day number. This is only used from Load class under world creation and won't work otherwise.
+     * @param dayNumber the new day number
      */
     public void setDayNumber(int dayNumber) throws InvalidDayNumber {
-    	if (dayNumber > 0) {
-    		this.dayNumber = dayNumber;
-    	} else {
-    		throw new InvalidDayNumber();
+    	if (!worldCreated) {
+	    	if (dayNumber > 0) {
+	    		this.dayNumber = dayNumber;
+	    	} else {
+	    		throw new InvalidDayNumber();
+	    	}
     	}
     }
     
-    /*
+    /**
      * Add a castaway to the world
-     * @param castaway The castaway character to add
+     * @param castaway the castaway character to add
      */
     public void addCastaway(Castaway castaway) throws TooManyCastaway {
     	if (numberOfCastaway == MAXIMUM_CASTAWAY) {
@@ -144,10 +147,10 @@ public final class World {
     	}
     }
     
-    /*
+    /**
      * Give access to the castaway by its id
-     * @param id The castaway id (0 = hero)
-     * @return The castaway seeked
+     * @param id the castaway id (0 = hero)
+     * @return the seeked castaway
      */
     public Castaway getCastaway(int id) {
     	if (id >= 0 && id < MAXIMUM_CASTAWAY) {
@@ -156,9 +159,9 @@ public final class World {
 		return null;
     }
     
-    /*
+    /**
      * Initialize the castaways
-     * @param numberOfCastaway The number of castaway
+     * @param numberOfCastaway the number of castaway
      */
     public void initCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
     	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
@@ -176,15 +179,15 @@ public final class World {
     	}
     }
     
-    /*
+    /**
      * Gives the number of castaway left alive, including you
-     * @return The number of castaway left, including you
+     * @return the number of castaway left, including you
      */
     public int getNumberOfCastaway() {
     	return numberOfCastaway;
     }
     
-    /*
+    /**
      * Prints the current weather
      */
     public void printWeather() {
@@ -199,15 +202,15 @@ public final class World {
     	}
     }
     
-    /*
+    /**
      * Returns the current weather
-     * @return The current weather
+     * @return the current weather
      */
     public Weather getWeather() {
     	return weather;
     }
     
-    /*
+    /**
      * Called when a castaway is gone
      */
     public void removeCastaway() {
