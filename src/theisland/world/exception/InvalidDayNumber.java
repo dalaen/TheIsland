@@ -1,5 +1,7 @@
 package theisland.world.exception;
 
+import theisland.gui.Gui;
+
 public class InvalidDayNumber extends Exception {
 
 	/**
@@ -7,4 +9,7 @@ public class InvalidDayNumber extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public InvalidDayNumber() {
+		Gui.displayError("The number of day is incorrect. Either it's negative or it's greater than the maximum allowed.");
+	}
 }
