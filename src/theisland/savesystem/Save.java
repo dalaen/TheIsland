@@ -30,7 +30,7 @@ public final class Save {
 	 * Save and write in configuration file the data of a character
 	 * @param character: the character's data to save
 	 */
-	public void saveCharacterData(Castaway character, int characterId) {
+	private void saveCharacterData(Castaway character, int characterId) {
 		String prefix;
 		
 		if (character.isHero()) {
@@ -69,6 +69,12 @@ public final class Save {
 		write();
 	}
 
+	public void saveAllCharacterData(World world) {
+		for (int i = 0 ; i < world.getNumberOfCastaway() ; i++) {
+			saveCharacterData(world.getCastaway(i), i);
+		}
+	}
+	
 	public void saveWorldData(World world) {
 		save.setProperty("world.weather", world.getWeather().toString());
 		save.setProperty("world.numberOfCastaway", new Integer(world.getNumberOfCastaway()).toString());
