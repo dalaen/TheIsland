@@ -20,25 +20,23 @@ import theisland.world.exception.TooManyCastaway;
 
 public final class Load {
 	private final static Load INSTANCE = new Load();
-	private final String SAVE_FILENAME = "config.sav";
 	private static Properties save = new Properties();
 	private FileReader configFile;
-	
+
 	private Load() {
 	}
-	
+
 	public static Load getInstance() {
 		return INSTANCE;
 	}
-	
+
 	/**
-	 * Load data from configuration file
-	 * 
-	 * @return true if any mistake occured, false otherwise
+	 * Load from configuration file
+	 * @return true if loading has been correctly fulfilled, false if any mistake occured
 	 */
 	public boolean load() {
 		try {
-			configFile = new FileReader(SAVE_FILENAME);
+			configFile = new FileReader("config.sav");
 		} catch (IOException e) {
 			Gui.displayError("The config file cannot be written");
 			e.printStackTrace();
@@ -51,19 +49,19 @@ public final class Load {
 			e.printStackTrace();
 			return true; // Abort loading
 		}
-		
+
 		String prefix = new String();
 		// Handle world properties
 		prefix = "world.";
-		
+
 		// TODO: Add security to loaded values (do they exist?)
-		
+
 		// Get the weather
 		// If none, default weather will be loaded
 		if (save.containsKey(prefix + "weather")) {
 			World.getInstance().changeWeather(save.getProperty(prefix + "weather"));
 		}
-		
+
 		// Get the number of castaway
 		int numberOfCastaway = 1;
 		if (save.containsKey(prefix + "numberOfCastaway")) {
@@ -72,7 +70,7 @@ public final class Load {
 			// Abort loading if there's no numberOfCastaway
 			return true;
 		}
-		
+
 		// Get the number of the day
 		// If it doesn't exist, get the default value
 		if (save.containsKey(prefix + "dayNumber")) {
@@ -83,7 +81,7 @@ public final class Load {
 				e.printStackTrace();
 			}
 		}
-		
+
 		// Restore all the castaway statuses
 		for (int i = 0 ; i < numberOfCastaway ; i++) {
 			Castaway castaway;
@@ -94,7 +92,7 @@ public final class Load {
 				prefix = "castaway_" + i + ".";
 				castaway = new Castaway(false);
 			}
-			
+
 			if (save.containsKey(prefix + "name")) {
 				try {
 					castaway.setName(save.getProperty(prefix + "name"));
@@ -106,7 +104,7 @@ public final class Load {
 			} else {
 				return true;
 			}
-			
+
 			if (save.containsKey(prefix + "health")) {
 				try {
 					castaway.setHealth(new Integer(save.getProperty(prefix + "health")));
@@ -118,7 +116,7 @@ public final class Load {
 			} else {
 				return true;
 			}
-			
+
 			if (save.containsKey(prefix + "energy")) {
 				try {
 					castaway.setEnergy(new Integer(save.getProperty(prefix + "energy")));
@@ -130,7 +128,7 @@ public final class Load {
 			} else {
 				return true;
 			}
-			
+
 			if (save.containsKey(prefix + "moral")) {
 				try {
 					castaway.setMoral(new Integer(save.getProperty(prefix + "moral")));
@@ -142,7 +140,7 @@ public final class Load {
 			} else {
 				return true;
 			}
-			
+
 			if (save.containsKey(prefix + "affinity")) {
 				try {
 					castaway.setAffinity(new Integer(save.getProperty(prefix + "affinity")));
@@ -154,15 +152,15 @@ public final class Load {
 			} else {
 				return true;
 			}
-			
+
 			// -- Inventory
 			String savedInventory = null;
 			if (save.containsKey(prefix + "inventory")) {
 				savedInventory = save.getProperty(prefix + "inventory");
 			}
-			
+
 			if (!savedInventory.isEmpty()) {
-				final String SEPARATION_CHAR = "?";
+				final String SEPARATION_CHAR = "&";
 				String[] inventoryContent = savedInventory.split(SEPARATION_CHAR);
 				for (String s : inventoryContent) {
 					ByteArrayInputStream inventoryIn = new ByteArrayInputStream(s.getBytes()); // Bug here on s[1]
@@ -181,7 +179,7 @@ public final class Load {
 					}
 				}
 			}
-			
+
 			try {
 				World.getInstance().addCastaway(castaway);
 			} catch (TooManyCastaway e) {

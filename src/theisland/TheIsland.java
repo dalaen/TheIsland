@@ -40,8 +40,8 @@ public class TheIsland {
         World.getInstance().nextDay();
         World.getInstance().printWeather();
         
-        for (int i = 0 ; i < World.getInstance().getNumberOfCastaway() ; i++) {
-        	Save.getInstance().saveCharacterData(World.getInstance().getCastaway(i), i);
-        }
+        Save.getInstance().saveAllCharacterData(World.getInstance());
+        
+        Gui.display(World.getInstance().getCastaway(0).getInventory().toString());
     }
 }
