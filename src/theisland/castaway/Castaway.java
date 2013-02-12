@@ -52,12 +52,19 @@ public class Castaway {
         inventory = new ArrayList<>();
         this.isHero = isHero;
     }
-    
+    /**
+     * Add an item to the inventory of the castaway, decrease affinity
+     * @param item Item to add to the inventory
+     */
     public void addItemToInventory(Item item)
     {
         this.inventory.add(item);
     }
     
+    /**
+     * Steal randomly an object of a castaway's inventory
+     * @param stolenPlayer Catsaway to steal
+     */
     public void steal(Castaway stolenPlayer){
         Item stolenItem;
         int inventorySize;
@@ -102,6 +109,10 @@ public class Castaway {
         
     }
     
+    /**
+     * Kill a castaway(reduce his live and energy to 0)
+     * @param killedPlayer Castaway to kill
+     */
     public void kill(Castaway killedPlayer){
         if(killedPlayer.energy < 10 && this.energy > 10)
         {
@@ -127,6 +138,10 @@ public class Castaway {
         
     }
     
+    /**
+     * Speak with another castaway, increase moral and affinity
+     * @param player1  Castaway you want to speak with
+     */
     public void speakTo(Castaway player1){
         
         if(this.moral <= 90)
@@ -194,6 +209,10 @@ public class Castaway {
         }
     }
     
+    /**
+     * Deal an item with another castaway, increase moral and affinity
+     * @param player1 Castaway you want to deal with
+     */
     public void dealWith(Castaway player1){
         if(player1.moral <= 90)
         {
@@ -287,34 +306,70 @@ public class Castaway {
         
     }
     
+    /**
+     * 
+     * @return Return true if the castaway is an hero, 0 otherwise
+     */
     public boolean isHero(){
         return isHero;
     }
     
+    /**
+     * 
+     * @return Return the affinity of the castaway with a specific another castaway
+     */
     public int getAffinity(){
         return affinity;
     }
+    
+    /**
+     * 
+     * @return Return the energy of the castaway
+     */
     public int getEnergy(){
         return energy;
     }
+    
+    /**
+     * 
+     * @return Return the healt of the castaway
+     */
     public int getHealth(){
         return health;
     }
+    
+    /**
+     * 
+     * @return Return the moral of a castaway
+     */
     public int getMoral(){
         return moral;
     }
+    
+    
     public int getStress(){
         return stress;
     }
+    
+    /**
+     * 
+     * @return Return the name of a castaway
+     */
     public String getName(){
         return name;
     }
+    
+    /**
+     * 
+     * @return Return the inventory of a castaway
+     */
     public ArrayList<Item> getInventory(){
         return inventory;
     }
     
 
     /**
+     * Set the health of the castaway
      * @param health the health to set
      */
     public void setHealth(int health) throws HealthOutOfRange {
@@ -338,6 +393,7 @@ public class Castaway {
     }
 
     /**
+     * Set the energy of the castaway
      * @param energy the energy to set
      */
     public void setEnergy(int energy) throws EnergyOutOfRange {
@@ -349,6 +405,7 @@ public class Castaway {
     }
 
     /**
+     * Set the moral of the castaway
      * @param moral the moral to set
      */
     public void setMoral(int moral) throws MoralOutOfRange {
@@ -360,6 +417,7 @@ public class Castaway {
     }
 
     /**
+     * Set the name of the castaway
      * @param name the name to set
      */
     public void setName(String name) throws NameOutOfRange {
@@ -371,6 +429,7 @@ public class Castaway {
     }
 
     /**
+     * Set the inventory of the castaway
      * @param inventory the inventory to set
      */
     public void setInventory(ArrayList<Item> inventory) throws InventoryOutOfRange {
@@ -382,6 +441,7 @@ public class Castaway {
     }
 
     /**
+     * Set the affinity of the castaway with a specific castaway
      * @param affinity the affinity to set
      */
     public void setAffinity(int affinity) throws AffinityOutOfRange {
