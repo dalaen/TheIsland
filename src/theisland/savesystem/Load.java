@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Properties;
 
+import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+
 import theisland.castaway.Castaway;
 import theisland.castaway.exception.AffinityOutOfRange;
 import theisland.castaway.exception.EnergyOutOfRange;
@@ -163,7 +166,13 @@ public final class Load {
 				final String SEPARATION_CHAR = "&";
 				String[] inventoryContent = savedInventory.split(SEPARATION_CHAR);
 				for (String s : inventoryContent) {
-					ByteArrayInputStream inventoryIn = new ByteArrayInputStream(s.getBytes()); // Bug here on s[1]
+					ByteArrayInputStream inventoryIn = null;
+					try {
+						inventoryIn = new ByteArrayInputStream(Base64.decode(s));
+					} catch (Base64DecodingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} // Bug here on s[1]
 					ObjectInputStream iStream = null;
 					try {
 						iStream = new ObjectInputStream(inventoryIn);

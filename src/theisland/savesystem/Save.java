@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Properties;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+
 import theisland.castaway.Castaway;
 import theisland.gui.Gui;
 import theisland.item.Item;
@@ -57,7 +59,7 @@ public final class Save {
 					oStream = new ObjectOutputStream(inventoryOutBuffer);
 					oStream.writeObject(item);
 					oStream.close();
-					inventoryOut += inventoryOutBuffer.toString() + SEPARATION_CHAR;
+					inventoryOut += Base64.encode(inventoryOutBuffer.toByteArray()) + SEPARATION_CHAR;
 				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
