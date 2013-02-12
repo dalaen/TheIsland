@@ -12,7 +12,7 @@ import theisland.world.World;
 
 /**
  *
- * @author Xavier
+ * @author Xavier Poirot
  */
 public class TheIsland {
 

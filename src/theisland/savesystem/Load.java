@@ -12,7 +12,6 @@ import theisland.castaway.exception.EnergyOutOfRange;
 import theisland.castaway.exception.HealthOutOfRange;
 import theisland.castaway.exception.MoralOutOfRange;
 import theisland.castaway.exception.NameOutOfRange;
-import theisland.castaway.exception.StressOutOfRange;
 import theisland.gui.Gui;
 import theisland.item.Item;
 import theisland.world.World;
@@ -156,18 +155,6 @@ public final class Load {
 				return true;
 			}
 			
-			if (save.containsKey(prefix + "stress")) {
-				try {
-					castaway.setStress(new Integer(save.getProperty(prefix + "stress")));
-				} catch (StressOutOfRange e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return true;
-				}
-			} else {
-				return true;
-			}
-			
 			// -- Inventory
 			String savedInventory = null;
 			if (save.containsKey(prefix + "inventory")) {
@@ -175,7 +162,7 @@ public final class Load {
 			}
 			
 			if (!savedInventory.isEmpty()) {
-				final String SEPARATION_CHAR = "£";
+				final String SEPARATION_CHAR = "?";
 				String[] inventoryContent = savedInventory.split(SEPARATION_CHAR);
 				for (String s : inventoryContent) {
 					ByteArrayInputStream inventoryIn = new ByteArrayInputStream(s.getBytes()); // Bug here on s[1]
