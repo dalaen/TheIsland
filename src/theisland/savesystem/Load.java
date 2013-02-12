@@ -31,7 +31,7 @@ public final class Load {
 	
 	/**
 	 * Load from configuration file
-	 * @return true if loading has been correctly fulfilled, false if any mistake occured
+	 * @return true if loading has been correctly fulfilled, false if any mistake occurred
 	 */
 	public boolean load() {
 		try {
@@ -145,17 +145,6 @@ public final class Load {
 			return true;
 		}
 		
-		if (save.containsKey(prefix + "stress")) {
-			try {
-				hero.setStress(new Integer(save.getProperty(prefix + "stress")));
-			} catch (StressOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return true;
-			}
-		} else {
-			return true;
-		}
 		// TODO: Inventory handling, see what separe each item [item;item] [item,item] [item:item] ??
 		// -- Inventory
 		//ArrayList<Item> inventory = new ArrayList<Item>();
