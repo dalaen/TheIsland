@@ -35,7 +35,6 @@ public final class Save {
 		}
 		save.setProperty(prefix + "name", character.getName());
 		save.setProperty(prefix + "health", new Integer(character.getHealth()).toString());
-		save.setProperty(prefix + "stress", new Integer(character.getStress()).toString());
 		save.setProperty(prefix + "energy", new Integer(character.getEnergy()).toString());
 		save.setProperty(prefix + "moral", new Integer(character.getMoral()).toString());
 		save.setProperty(prefix + "affinity", new Integer(character.getAffinity()).toString());

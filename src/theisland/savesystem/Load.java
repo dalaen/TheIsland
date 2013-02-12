@@ -214,15 +214,6 @@ public final class Load {
 					castaway.setAffinity(100);
 				} catch (AffinityOutOfRange e) {}
 			}
-			try {
-				castaway.setStress(new Integer(save.getProperty(prefix + "stress")));
-			} catch (NumberFormatException | StressOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				try {
-					castaway.setStress(100);
-				} catch (StressOutOfRange e) {}
-			}
 			
 			try {
 				World.getInstance().addCastaway(castaway);

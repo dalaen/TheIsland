@@ -16,7 +16,6 @@ import theisland.item.Item;
  */
 public class Castaway {
     private int health = 100;    // Health between 0 and 100
-    private int stress = 0;    // Stress between 0 and 100
     private int energy = 100;    // Energy between 0 and 100
     private int moral = 100;     // Moral between 0 and 100
     private String name;   // Name between 1 and 20 characters
@@ -303,9 +302,6 @@ public class Castaway {
     public int getMoral(){
         return moral;
     }
-    public int getStress(){
-        return stress;
-    }
     public String getName(){
         return name;
     }
@@ -324,17 +320,6 @@ public class Castaway {
             throw new HealthOutOfRange();
         }
        
-    }
-
-    /**
-     * @param stress the stress to set
-     */
-    public void setStress(int stress) throws StressOutOfRange {
-        if(stress >= 0 && stress <= 100){
-            this.stress = stress;
-        } else {
-            throw new StressOutOfRange();
-        }
     }
 
     /**
