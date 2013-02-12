@@ -1,7 +1,9 @@
 package theisland.savesystem;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Properties;
 
 import theisland.castaway.Castaway;
@@ -10,15 +12,15 @@ import theisland.castaway.exception.EnergyOutOfRange;
 import theisland.castaway.exception.HealthOutOfRange;
 import theisland.castaway.exception.MoralOutOfRange;
 import theisland.castaway.exception.NameOutOfRange;
-import theisland.castaway.exception.StressOutOfRange;
 import theisland.gui.Gui;
+import theisland.item.Item;
 import theisland.world.World;
 import theisland.world.exception.InvalidDayNumber;
-import theisland.world.exception.TooFewCastaway;
 import theisland.world.exception.TooManyCastaway;
 
 public final class Load {
 	private final static Load INSTANCE = new Load();
+	private final String SAVE_FILENAME = "config.sav";
 	private static Properties save = new Properties();
 	private FileReader configFile;
 	
@@ -30,12 +32,13 @@ public final class Load {
 	}
 	
 	/**
-	 * Load from configuration file
-	 * @return true if loading has been correctly fulfilled, false if any mistake occurred
+	 * Load data from configuration file
+	 * 
+	 * @return true if any mistake occured, false otherwise
 	 */
 	public boolean load() {
 		try {
-			configFile = new FileReader("config.sav");
+			configFile = new FileReader(SAVE_FILENAME);
 		} catch (IOException e) {
 			Gui.displayError("The config file cannot be written");
 			e.printStackTrace();
@@ -81,127 +84,102 @@ public final class Load {
 			}
 		}
 		
-		// Handle hero properties
-		// This is required in a save file
-		prefix = "hero.";
-		Castaway hero = new Castaway(true);
-		if (save.containsKey(prefix + "name")) {
-			try {
-				hero.setName(save.getProperty(prefix + "name"));
-			} catch (NameOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return true;
+		// Restore all the castaway statuses
+		for (int i = 0 ; i < numberOfCastaway ; i++) {
+			Castaway castaway;
+			if (i == 0) { // it's a hero
+				prefix = "hero.";
+				castaway = new Castaway(true);
+			} else {
+				prefix = "castaway_" + i + ".";
+				castaway = new Castaway(false);
 			}
-		} else {
-			return true;
-		}
-		
-		if (save.containsKey(prefix + "health")) {
-			try {
-				hero.setHealth(new Integer(save.getProperty(prefix + "health")));
-			} catch (HealthOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return true;
-			}
-		} else {
-			return true;
-		}
-		
-		if (save.containsKey(prefix + "energy")) {
-			try {
-				hero.setEnergy(new Integer(save.getProperty(prefix + "energy")));
-			} catch (EnergyOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return true;
-			}
-		} else {
-			return true;
-		}
-		
-		if (save.containsKey(prefix + "moral")) {
-			try {
-				hero.setMoral(new Integer(save.getProperty(prefix + "moral")));
-			} catch (MoralOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return true;
-			}
-		} else {
-			return true;
-		}
-		
-		if (save.containsKey(prefix + "affinity")) {
-			try {
-				hero.setAffinity(new Integer(save.getProperty(prefix + "affinity")));
-			} catch (AffinityOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				return true;
-			}
-		} else {
-			return true;
-		}
-		
-		// TODO: Inventory handling, see what separe each item [item;item] [item,item] [item:item] ??
-		// -- Inventory
-		//ArrayList<Item> inventory = new ArrayList<Item>();
-		
-		try {
-			World.getInstance().addCastaway(hero);
-		} catch (TooManyCastaway e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// TODO: Add security on castaway missing elements too
-		
-		for (int i = 1 ; i < numberOfCastaway ; i++) {
-			Castaway castaway = new Castaway(false);
-			prefix = "castaway_" + i + ".";
-			try {
-				castaway.setName(save.getProperty(prefix + "name"));
-			} catch (NameOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				castaway.setHealth(new Integer(save.getProperty(prefix + "health")));
-			} catch (NumberFormatException | HealthOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+			if (save.containsKey(prefix + "name")) {
 				try {
-					castaway.setHealth(100);
-				} catch (HealthOutOfRange e) {}
+					castaway.setName(save.getProperty(prefix + "name"));
+				} catch (NameOutOfRange e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return true;
+				}
+			} else {
+				return true;
 			}
-			try {
-				castaway.setEnergy(new Integer(save.getProperty(prefix + "energy")));
-			} catch (NumberFormatException | EnergyOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+			if (save.containsKey(prefix + "health")) {
 				try {
-					castaway.setEnergy(100);
-				} catch (EnergyOutOfRange e) {}
+					castaway.setHealth(new Integer(save.getProperty(prefix + "health")));
+				} catch (HealthOutOfRange e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return true;
+				}
+			} else {
+				return true;
 			}
-			try {
-				castaway.setMoral(new Integer(save.getProperty(prefix + "moral")));
-			} catch (NumberFormatException | MoralOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+			if (save.containsKey(prefix + "energy")) {
 				try {
-					castaway.setMoral(100);
-				} catch (MoralOutOfRange e) {}
+					castaway.setEnergy(new Integer(save.getProperty(prefix + "energy")));
+				} catch (EnergyOutOfRange e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return true;
+				}
+			} else {
+				return true;
 			}
-			try {
-				castaway.setAffinity(new Integer(save.getProperty(prefix + "affinity")));
-			} catch (NumberFormatException | AffinityOutOfRange e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+			if (save.containsKey(prefix + "moral")) {
 				try {
-					castaway.setAffinity(100);
-				} catch (AffinityOutOfRange e) {}
+					castaway.setMoral(new Integer(save.getProperty(prefix + "moral")));
+				} catch (MoralOutOfRange e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return true;
+				}
+			} else {
+				return true;
+			}
+			
+			if (save.containsKey(prefix + "affinity")) {
+				try {
+					castaway.setAffinity(new Integer(save.getProperty(prefix + "affinity")));
+				} catch (AffinityOutOfRange e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return true;
+				}
+			} else {
+				return true;
+			}
+			
+			// -- Inventory
+			String savedInventory = null;
+			if (save.containsKey(prefix + "inventory")) {
+				savedInventory = save.getProperty(prefix + "inventory");
+			}
+			
+			if (!savedInventory.isEmpty()) {
+				final String SEPARATION_CHAR = "?";
+				String[] inventoryContent = savedInventory.split(SEPARATION_CHAR);
+				for (String s : inventoryContent) {
+					ByteArrayInputStream inventoryIn = new ByteArrayInputStream(s.getBytes()); // Bug here on s[1]
+					ObjectInputStream iStream = null;
+					try {
+						iStream = new ObjectInputStream(inventoryIn);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} // Let's prepare our inventory...
+					try {
+						castaway.addItemToInventory((Item) iStream.readObject());
+					} catch (ClassNotFoundException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 			
 			try {
