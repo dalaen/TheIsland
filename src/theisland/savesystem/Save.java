@@ -44,12 +44,14 @@ public final class Save {
 		save.setProperty(prefix + "energy", new Integer(character.getEnergy()).toString());
 		save.setProperty(prefix + "moral", new Integer(character.getMoral()).toString());
 		save.setProperty(prefix + "affinity", new Integer(character.getAffinity()).toString());
+		
+		// TODO: Encode in UTF-8... US-ASCII??
 		String inventoryOut = new String();
 
 		if (!character.getInventory().isEmpty()) {
-			ObjectOutputStream oStream;
 			final char SEPARATION_CHAR = '&';
 			try {
+				ObjectOutputStream oStream;
 				for (Item item : character.getInventory()) {
 					ByteArrayOutputStream inventoryOutBuffer = new ByteArrayOutputStream(); // Let's prepare our inventory...
 					oStream = new ObjectOutputStream(inventoryOutBuffer);
@@ -63,7 +65,7 @@ public final class Save {
 			}
 		}
 		//save.setProperty(prefix + "inventory", character.getInventory().toString());
-		save.setProperty(prefix + "inventory", inventoryOut.toString());
+		save.setProperty(prefix + "inventory", inventoryOut);
 
 		write();
 	}

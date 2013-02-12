@@ -155,11 +155,11 @@ public final class Load {
 
 			// -- Inventory
 			String savedInventory = null;
-			if (save.containsKey(prefix + "inventory")) {
+			if (save.containsKey(prefix + "inventory") && !save.getProperty(prefix + "inventory").isEmpty()) {
 				savedInventory = save.getProperty(prefix + "inventory");
 			}
 
-			if (!savedInventory.isEmpty()) {
+			if (savedInventory != null) {
 				final String SEPARATION_CHAR = "&";
 				String[] inventoryContent = savedInventory.split(SEPARATION_CHAR);
 				for (String s : inventoryContent) {
