@@ -11,6 +11,11 @@ package theisland.castaway.exception;
 public class AffinityOutOfRange extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2374699664379979833L;
+
+	/**
      * Creates a new instance of
      * <code>AffinityOutOfRange</code> without detail message.
      */

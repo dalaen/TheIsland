@@ -5,6 +5,6 @@ public class TooFewCastaway extends Exception {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8488832617377831770L;
 
 }

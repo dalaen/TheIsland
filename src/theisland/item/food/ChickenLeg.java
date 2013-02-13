@@ -7,7 +7,11 @@ import java.util.Random;
  * @author Xavier
  */
 public class ChickenLeg extends Food {
-    private final int MAXIMUM_LIFETIME = 2;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2966331841836108616L;
+	private final int MAXIMUM_LIFETIME = 2;
     
     public ChickenLeg() {
         setName("Chicken Leg");

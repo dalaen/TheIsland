@@ -7,7 +7,11 @@ import java.util.Random;
  * @author Xavier
  */
 public class Mushroom extends Food {
-    private final int MAXIMUM_LIFETIME = 4;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3637084421735024654L;
+	private final int MAXIMUM_LIFETIME = 4;
     private final String[] MUSHROOM_POSSIBILITIES = {"Champignon de Paris", "Morille"};
     
     public Mushroom() {

@@ -1,13 +1,12 @@
 package theisland.savesystem;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Properties;
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 import theisland.castaway.Castaway;
 import theisland.gui.Gui;
@@ -44,18 +43,20 @@ public final class Save {
 		save.setProperty(prefix + "energy", new Integer(character.getEnergy()).toString());
 		save.setProperty(prefix + "moral", new Integer(character.getMoral()).toString());
 		save.setProperty(prefix + "affinity", new Integer(character.getAffinity()).toString());
+		
+		// TODO: Encode in UTF-8... US-ASCII??
 		String inventoryOut = new String();
 
 		if (!character.getInventory().isEmpty()) {
-			ObjectOutputStream oStream;
 			final char SEPARATION_CHAR = '&';
 			try {
+				ObjectOutputStream oStream;
 				for (Item item : character.getInventory()) {
 					ByteArrayOutputStream inventoryOutBuffer = new ByteArrayOutputStream(); // Let's prepare our inventory...
 					oStream = new ObjectOutputStream(inventoryOutBuffer);
 					oStream.writeObject(item);
 					oStream.close();
-					inventoryOut += inventoryOutBuffer.toString() + SEPARATION_CHAR;
+					inventoryOut += Base64.encode(inventoryOutBuffer.toByteArray()) + SEPARATION_CHAR;
 				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -63,7 +64,7 @@ public final class Save {
 			}
 		}
 		//save.setProperty(prefix + "inventory", character.getInventory().toString());
-		save.setProperty(prefix + "inventory", inventoryOut.toString());
+		save.setProperty(prefix + "inventory", inventoryOut);
 
 		write();
 	}
