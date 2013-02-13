@@ -150,13 +150,21 @@ public final class World {
     /**
      * Give access to the castaway by its id
      * @param id the castaway id (0 = hero)
-     * @return the seeked castaway
+     * @return the sought castaway
      */
     public Castaway getCastaway(int id) {
     	if (id >= 0 && id < MAXIMUM_CASTAWAY) {
     		return castaways[id];
     	}
 		return null;
+    }
+    
+    /**
+     * Give direct access to the hero
+     * @return the hero's data
+     */
+    public Castaway getHero() {
+    	return getCastaway(0);
     }
     
     /**
