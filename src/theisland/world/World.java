@@ -27,7 +27,8 @@ public final class World {
     private ArrayList<Castaway> castaways = new ArrayList<Castaway>();
     private Weather weather = Weather.STORM;
     private int dayNumber = 1;
-    private static boolean worldCreated = false;
+    private boolean worldCreated = false;
+    private boolean isNew;
     
     private World() {
     }
@@ -42,6 +43,7 @@ public final class World {
 	    		// Load previous game
 	    		if (promptUserIfLoadGame()) {
 	    			saveCorrupted = Load.getInstance().load();
+	    			isNew = false;
 	    		} else {
 	    			promptCastawayNumber();
 	    		}
@@ -71,17 +73,14 @@ public final class World {
 	            enteredNumber = SCANNER.nextInt();
 			}
         }
+        
+        isNew = true;
     }
     
     private boolean promptUserIfLoadGame() {
     	Gui.displayInline("A save file exists. Do you wanna load it? (Y/n) ");
     	
-    	String enteredChoice = SCANNER.nextLine();
-    	if (enteredChoice.equals("n") || enteredChoice.equals("N")) {
-    		return false;
-    	} else {
-    		return true;
-    	}
+    	return Gui.promptYesNoQuestion(SCANNER);
     }
     
     public static World getInstance() {
@@ -195,7 +194,9 @@ public final class World {
     		
     		int i;
     		for (i = 1 ; i < numberOfCastaway ; i++) {
-    			addCastaway(new Castaway(false));
+    			Castaway castawayToAdd = new Castaway(false);
+    			castawayToAdd.createRandomInventory();
+    			addCastaway(castawayToAdd);
     		}
     	} else if (numberOfCastaway > MAXIMUM_CASTAWAY) {
     		throw new TooManyCastaway();
@@ -264,7 +265,11 @@ public final class World {
     	}
     }
     
-    /**
+    public boolean isNew() {
+		return isNew;
+	}
+
+	/**
      * End of the game
      */
     private void endGame() {
