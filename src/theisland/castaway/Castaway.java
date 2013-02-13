@@ -60,6 +60,10 @@ public class Castaway {
         this.inventory.add(item);
     }
     
+    /**
+     * Delete an item from the inventory without precision of its index
+     * @param item Item to delete from the inventory
+     */
     public void deleteItemFromInventory(Item item)
     {
         int index;
