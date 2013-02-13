@@ -1,5 +1,7 @@
 package theisland.gui;
 
+import theisland.castaway.Castaway;
+
 /**
  *
  * @author Xavier
@@ -31,5 +33,14 @@ public class Gui {
     	if (!displayString.isEmpty()) {
     		System.err.println(displayString);
     	}
+    }
+    
+    /**
+     * Display HUD with vital variables about the hero
+     * Displayed: hero's name, hero's health, hero's energy, hero's moral
+     * @param hero the hero to display its details
+     */
+    public static void displayHud(Castaway hero) {
+    	display("HUD – [Health]" + hero.getHealth() + " [Energy]" + hero.getEnergy() + " [Moral]" + hero.getMoral());
     }
 }
