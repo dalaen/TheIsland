@@ -18,9 +18,9 @@ public class History {
 	
     /**
      * Display the introduction of the game 
-     * @param mode Mode of the game : 1 for solo mode, 0 for multiplayer mode
+     * @param mode Mode of the game : SOLO, MULTIPLAYER
      */
-    public static void displayIntroduction(int mode){
+    public static void displayIntroduction(Mode mode){
         Gui.display("On a beautiful summer day, the passengers of Flight 4125 from New York to Tahiti are serene, the flight is going well and dozens of beautiful islands are visible from the plane ...");
         
         try {
@@ -37,11 +37,11 @@ public class History {
             Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(mode == 1) {
+        if(mode.equals(Mode.SOLO)) {
             Gui.display("Sunlight wake you up, you're lying on the beach, the carcass of the plane, decomposed, is a little farther down the beach.Bodies are floating on the water and nobody seems to have survived apart from you ... ");
         }
     
-        if(mode == 0) {
+        if(mode.equals(Mode.MULTIPLAYER)) {
             Gui.display("Sunlight wake you up, you're lying on the beach, the carcass of the plane, decomposed, is a little farther down the beach.Bodies are floating on the water, a person runs to you and asks if you're okay ... ");
         }
         
