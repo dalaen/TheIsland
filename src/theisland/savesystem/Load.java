@@ -10,10 +10,6 @@ import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingExcepti
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 import theisland.castaway.Castaway;
-import theisland.castaway.exception.AffinityOutOfRange;
-import theisland.castaway.exception.EnergyOutOfRange;
-import theisland.castaway.exception.HealthOutOfRange;
-import theisland.castaway.exception.MoralOutOfRange;
 import theisland.castaway.exception.NameOutOfRange;
 import theisland.gui.Gui;
 import theisland.item.Item;
@@ -109,49 +105,25 @@ public final class Load implements Loadable {
 			}
 
 			if (save.containsKey(prefix + "health")) {
-				try {
-					castaway.setHealth(new Integer(save.getProperty(prefix + "health")));
-				} catch (HealthOutOfRange e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return true;
-				}
+				castaway.setHealth(new Integer(save.getProperty(prefix + "health")));
 			} else {
 				return true;
 			}
 
 			if (save.containsKey(prefix + "energy")) {
-				try {
-					castaway.setEnergy(new Integer(save.getProperty(prefix + "energy")));
-				} catch (EnergyOutOfRange e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return true;
-				}
+				castaway.setEnergy(new Integer(save.getProperty(prefix + "energy")));
 			} else {
 				return true;
 			}
 
 			if (save.containsKey(prefix + "moral")) {
-				try {
-					castaway.setMoral(new Integer(save.getProperty(prefix + "moral")));
-				} catch (MoralOutOfRange e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return true;
-				}
+				castaway.setMoral(new Integer(save.getProperty(prefix + "moral")));
 			} else {
 				return true;
 			}
 
 			if (save.containsKey(prefix + "affinity")) {
-				try {
-					castaway.setAffinity(new Integer(save.getProperty(prefix + "affinity")));
-				} catch (AffinityOutOfRange e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return true;
-				}
+				castaway.setAffinity(new Integer(save.getProperty(prefix + "affinity")));
 			} else {
 				return true;
 			}
