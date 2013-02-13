@@ -13,7 +13,7 @@ import theisland.gui.Gui;
 import theisland.item.Item;
 import theisland.world.World;
 
-public final class Save {
+public final class Save implements Savable {
 	private final static Save INSTANCE = new Save();
 	private static Properties save = new Properties();
 	private FileWriter configFile;
@@ -25,9 +25,10 @@ public final class Save {
 		return INSTANCE;
 	}
 
-	/*
+	/**
 	 * Save and write in configuration file the data of a character
-	 * @param character: the character's data to save
+	 * @param character the character's data to save
+	 * @param characterId the character's ID in the array
 	 */
 	public void saveCharacterData(Castaway character, int characterId) {
 		String prefix;
