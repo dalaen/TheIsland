@@ -243,79 +243,76 @@ public class Castaway {
      * @param player1 Castaway you want to deal with
      */
     public void dealWith(Castaway player1){
-        if(this.energy > 5) {
-            this.energy = this.energy - 5;
-        }
-        else if(this.energy <= 5) {
-            this.energy = 0;
-        }
+        if(player1.affinity >= 50){
         
-        if(player1.moral <= 90)
-        {
-            player1.setMoral(player1.moral + 10);
-        }
-        else if(player1.moral > 90)
-        {
-            player1.setMoral(100);
-        }
-        
-        if(this.moral <= 90)
-        {
-            this.setMoral(this.moral + 10);
-        }
-        else if(this.moral > 90)
-        {
-            this.setMoral(100);
-        }
-        
-        if(player1.affinity <= 90)
-        {
-            player1.setAffinity(player1.affinity + 10);
-        }
-        else if(player1.affinity > 90)
-        {
-            player1.setAffinity(100);
-        }
-        
-        if(player1.inventory.isEmpty())
-        {
-            Gui.displayError("Apart from exchanging her clothes, you can't exchange something with this poor guy");
-        }
-        else 
-        {
-          int itemNumber;
-          Item exchangedItem;
-          
-          int inventorySize;
-          inventorySize = player1.inventory.size();
-          itemNumber = (new Random()).nextInt(inventorySize + 1);
-          exchangedItem = player1.inventory.get(itemNumber);
-          
-          Gui.display("This castaway offers exchange:");
-          Gui.display(exchangedItem.getName());
-          Gui.display("Do you accept ? Say Yes to accept, No to deny");
-          
-          String answer = SCANNER.next();
-          while (answer.contentEquals("Yes") || answer.contentEquals("No")) {
-	        
-            Gui.displayInline("Yes or No !");
-	    answer = SCANNER.next();
+            if(player1.moral <= 90)
+            {
+                player1.setMoral(player1.moral + 10);
             }
-          if(answer.contentEquals("Yes")){
-              Gui.display("Enter the number of the object you want to exchange");
-              int answerInt = SCANNER.nextInt();
-              while(answerInt <= 0 || answerInt > this.inventory.size()){
-                  Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
+            else if(player1.moral > 90)
+            {
+                player1.setMoral(100);
+            }
+
+            if(this.moral <= 90)
+            {
+                this.setMoral(this.moral + 10);
+            }
+            else if(this.moral > 90)
+            {
+                this.setMoral(100);
+            }
+
+            if(player1.affinity <= 90)
+            {
+                player1.setAffinity(player1.affinity + 10);
+            }
+            else if(player1.affinity > 90)
+            {
+                player1.setAffinity(100);
+            }
+
+            if(player1.inventory.isEmpty())
+            {
+                Gui.displayError("Apart from exchanging her clothes, you can't exchange something with this poor guy");
+            }
+            else 
+            {
+              int itemNumber;
+              Item exchangedItem;
+
+              int inventorySize;
+              inventorySize = player1.inventory.size();
+              itemNumber = (new Random()).nextInt(inventorySize + 1);
+              exchangedItem = player1.inventory.get(itemNumber);
+
+              Gui.display("This castaway offers exchange:");
+              Gui.display(exchangedItem.getName());
+              Gui.display("Do you accept ? Say Yes to accept, No to deny");
+
+              String answer = SCANNER.next();
+              while (answer.contentEquals("Yes") || answer.contentEquals("No")) {
+
+                Gui.displayInline("Yes or No !");
+                answer = SCANNER.next();
+                }
+              if(answer.contentEquals("Yes")){
+                  Gui.display("Enter the number of the object you want to exchange");
+                  int answerInt = SCANNER.nextInt();
+                  while(answerInt <= 0 || answerInt > this.inventory.size()){
+                      Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
+                  }
+              this.inventory.add(exchangedItem);
+              player1.inventory.remove(itemNumber);
+              exchangedItem = this.inventory.get(answerInt);
+              player1.inventory.add(exchangedItem);
+              this.inventory.remove(answerInt);
+              Gui.display("Exchange done");
               }
-          this.inventory.add(exchangedItem);
-          player1.inventory.remove(itemNumber);
-          exchangedItem = this.inventory.get(answerInt);
-          player1.inventory.add(exchangedItem);
-          this.inventory.remove(answerInt);
-          Gui.display("Exchange done");
-          }
+            }
+        } else {
+            gui.display("You can't deal with him because your affinity is too low");
         }
-        
     }
     
     /**
