@@ -41,8 +41,11 @@ public final class World {
 	        boolean saveCorrupted = false;
 	    	if ((new File("config.sav").exists())) {
 	    		// Load previous game
-	    		Gui.display("Config file exists");
-	    		saveCorrupted = Load.getInstance().load();
+	    		if (promptUserIfLoadGame()) {
+	    			saveCorrupted = Load.getInstance().load();
+	    		} else {
+	    			promptCastawayNumber();
+	    		}
 	    	} 
 	    	if (saveCorrupted || !(new File("config.sav").exists())) {
 	            // New game
@@ -69,6 +72,17 @@ public final class World {
 	            enteredNumber = SCANNER.nextInt();
 			}
         }
+    }
+    
+    private boolean promptUserIfLoadGame() {
+    	Gui.displayInline("A save file exists. Do you wanna load it? (Y/n) ");
+    	
+    	String enteredChoice = SCANNER.nextLine();
+    	if (enteredChoice.equals("n") || enteredChoice.equals("N")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
     
     public static World getInstance() {
