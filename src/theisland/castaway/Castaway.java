@@ -356,6 +356,18 @@ public class Castaway {
         return inventory;
     }
     
+    /**
+     * Display the inventory
+     */
+    public void displayInventory() {
+    	int i = 0;
+    	
+    	Gui.display("Hero's inventory");
+    	for (Item item : inventory) {
+    		Gui.display((i++ + 1) + ". " + item.getName());
+    	}
+    }
+    
 
     /**
      * Set the health of the castaway
@@ -427,10 +439,9 @@ public class Castaway {
             this.affinity = affinity;
         } else {
             throw new AffinityOutOfRange();
-        }
-    
-}
+        }    
     }
+}
     
 
 
