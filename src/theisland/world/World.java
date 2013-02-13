@@ -178,12 +178,12 @@ public final class World {
      */
     public void initCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
     	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
+    		// TODO: Add custom hero name
     		addCastaway(new Castaway("Hero", true));
     		
     		int i;
     		for (i = 1 ; i < numberOfCastaway ; i++) {
-    			// TODO: NO!!!!!
-    			addCastaway(new Castaway("castaway_"+i, false));
+    			addCastaway(new Castaway(false));
     		}
     	} else if (numberOfCastaway > MAXIMUM_CASTAWAY) {
     		throw new TooManyCastaway();
