@@ -66,6 +66,25 @@ public class Castaway {
     }
     
     /**
+     * Allows the castaway to care itself, but it decrease energy
+     */
+    public void care()
+    {
+        if(this.energy > 10) {
+            this.energy = this.energy - 10;
+        } else if(this.energy <= 10) {
+            this.energy = 0;
+        }
+        
+        if(this.health <= 90) {
+            this.health = this.health + 10;
+        } else if(this.health > 90){
+            this.health = 100;
+        }
+            
+    }
+    
+    /**
      * Delete an item from the inventory without precision of its index
      * @param item Item to delete from the inventory
      */
@@ -93,6 +112,12 @@ public class Castaway {
         Item stolenItem;
         int inventorySize;
         
+        if(this.energy > 5) {
+            this.energy = this.energy - 5;
+        }
+        else if(this.energy <= 5) {
+            this.energy = 0;
+        }
         if(stolenPlayer.inventory.isEmpty())
         {
             Gui.displayError("Apart from stealing her clothes, you can't take something from this poor guy");
@@ -130,6 +155,13 @@ public class Castaway {
      * @param killedPlayer Castaway to kill
      */
     public void kill(Castaway killedPlayer){
+        if(this.energy > 5) {
+            this.energy = this.energy - 5;
+        }
+        else if(this.energy <= 5) {
+            this.energy = 0;
+        }
+        
         if(killedPlayer.energy < 10 && this.energy > 10)
         {
             killedPlayer.setHealth(0);
@@ -143,6 +175,12 @@ public class Castaway {
     }
     
     public void take(){
+        if(this.energy > 5) {
+            this.energy = this.energy - 5;
+        }
+        else if(this.energy <= 5) {
+            this.energy = 0;
+        }
         
     }
     
@@ -151,6 +189,13 @@ public class Castaway {
      * @param player1  Castaway you want to speak with
      */
     public void speakTo(Castaway player1){
+        
+        if(this.energy > 5) {
+            this.energy = this.energy - 5;
+        }
+        else if(this.energy <= 5) {
+            this.energy = 0;
+        }
         
         if(this.moral <= 90)
         {
@@ -198,6 +243,13 @@ public class Castaway {
      * @param player1 Castaway you want to deal with
      */
     public void dealWith(Castaway player1){
+        if(this.energy > 5) {
+            this.energy = this.energy - 5;
+        }
+        else if(this.energy <= 5) {
+            this.energy = 0;
+        }
+        
         if(player1.moral <= 90)
         {
             player1.setMoral(player1.moral + 10);
