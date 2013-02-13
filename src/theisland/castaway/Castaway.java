@@ -60,6 +60,13 @@ public class Castaway {
         this.inventory.add(item);
     }
     
+    public void deleteItemFromInventory(Item item)
+    {
+        int index;
+        index = this.inventory.indexOf(item);
+        this.inventory.remove(index);
+    }
+    
     /**
      * Steal randomly an object of a castaway's inventory
      * @param stolenPlayer Catsaway to steal
