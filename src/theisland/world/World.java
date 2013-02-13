@@ -24,9 +24,8 @@ public final class World {
 	private static final World INSTANCE = new World();
     
     private final int MAXIMUM_CASTAWAY = 6;
-    private Castaway[] castaways = new Castaway[MAXIMUM_CASTAWAY];
+    private ArrayList<Castaway> castaways = new ArrayList<Castaway>();
     private Weather weather = Weather.STORM;
-    private int numberOfCastaway;
     private int dayNumber = 1;
     private static boolean worldCreated = false;
     
@@ -41,8 +40,11 @@ public final class World {
 	        boolean saveCorrupted = false;
 	    	if ((new File("config.sav").exists())) {
 	    		// Load previous game
-	    		Gui.display("Config file exists");
-	    		saveCorrupted = Load.getInstance().load();
+	    		if (promptUserIfLoadGame()) {
+	    			saveCorrupted = Load.getInstance().load();
+	    		} else {
+	    			promptCastawayNumber();
+	    		}
 	    	} 
 	    	if (saveCorrupted || !(new File("config.sav").exists())) {
 	            // New game
@@ -58,7 +60,7 @@ public final class World {
     	
     	int enteredNumber = SCANNER.nextInt();
     	
-        while (numberOfCastaway > MAXIMUM_CASTAWAY || numberOfCastaway < 2) {
+        while (castaways.size() > MAXIMUM_CASTAWAY || castaways.size() < 2) {
 	        try {
 				initCastaway(enteredNumber);
 			} catch (TooManyCastaway | TooFewCastaway e) {
@@ -69,6 +71,17 @@ public final class World {
 	            enteredNumber = SCANNER.nextInt();
 			}
         }
+    }
+    
+    private boolean promptUserIfLoadGame() {
+    	Gui.displayInline("A save file exists. Do you wanna load it? (Y/n) ");
+    	
+    	String enteredChoice = SCANNER.nextLine();
+    	if (enteredChoice.equals("n") || enteredChoice.equals("N")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
     
     public static World getInstance() {
@@ -144,11 +157,10 @@ public final class World {
      * @param castaway the castaway character to add
      */
     public void addCastaway(Castaway castaway) throws TooManyCastaway {
-    	if (numberOfCastaway == MAXIMUM_CASTAWAY) {
+    	if (castaways.size() == MAXIMUM_CASTAWAY) {
     		throw new TooManyCastaway();
     	} else {
-    		castaways[numberOfCastaway] = castaway;
-    		numberOfCastaway++;
+    		castaways.add(castaway);
     	}
     }
     
@@ -159,7 +171,7 @@ public final class World {
      */
     public Castaway getCastaway(int id) {
     	if (id >= 0 && id < MAXIMUM_CASTAWAY) {
-    		return castaways[id];
+    		return castaways.get(id);
     	}
 		return null;
     }
@@ -197,7 +209,7 @@ public final class World {
      * @return the number of castaway left, including you
      */
     public int getNumberOfCastaway() {
-    	return numberOfCastaway;
+    	return castaways.size();
     }
     
     /**
@@ -239,17 +251,20 @@ public final class World {
     
     /**
      * Called when a castaway is gone
+     * @param castaway the castaway to remove
      */
-    public void removeCastaway() {
-    	if (numberOfCastaway > 1) {
-    		numberOfCastaway--;
-    	}
-    	if (numberOfCastaway == 1) {
-    		endGame();
+    public void removeCastaway(Castaway castaway) {
+    	if (!castaway.isHero()) {
+	    	if (castaways.size() > 1) {
+	    		castaways.remove(castaway);
+	    	}
+	    	if (castaways.size() == 1) {
+	    		endGame();
+	    	}
     	}
     }
     
-    /*
+    /**
      * End of the game
      */
     private void endGame() {

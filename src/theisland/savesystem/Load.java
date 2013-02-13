@@ -21,7 +21,7 @@ import theisland.world.World;
 import theisland.world.exception.InvalidDayNumber;
 import theisland.world.exception.TooManyCastaway;
 
-public final class Load {
+public final class Load implements Loadable {
 	private final static Load INSTANCE = new Load();
 	private static Properties save = new Properties();
 	private FileReader configFile;
