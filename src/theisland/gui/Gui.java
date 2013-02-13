@@ -5,7 +5,7 @@ package theisland.gui;
  * @author Xavier
  */
 public class Gui {
-	/*
+	/**
 	 * Display a string with a \n return at the end
 	 */
     public static void display(String displayString) {
@@ -14,7 +14,7 @@ public class Gui {
         }
     }
     
-    /*
+    /**
      * Display a string without a \n return at the end.
      * Useful when information is asked to the user.
      */
@@ -24,7 +24,7 @@ public class Gui {
         }
     }
     
-    /*
+    /**
      * Display an error with a \n return at the end
      */
     public static void displayError(String displayString) {
