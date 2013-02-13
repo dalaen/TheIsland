@@ -311,7 +311,7 @@ public class Castaway {
               }
             }
         } else {
-            gui.display("You can't deal with him because your affinity is too low");
+            Gui.display("You can't deal with him because your affinity is too low");
         }
     }
     
