@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import theisland.castaway.exception.*;
 import theisland.gui.Gui;
 import theisland.item.Item;
+import theisland.world.World;
 
 /**
  *
@@ -19,15 +20,16 @@ public class Castaway {
     private int energy = 100;    // Energy between 0 and 100
     private int moral = 100;     // Moral between 0 and 100
     private String name;   // Name between 1 and 20 characters
-    private ArrayList<Item> inventory;  // Inventory between 0 and 25 items
+    private ArrayList<Item> inventory;  // Inventory between 0 and INVENTORY_MAXIMUM_SIZE items
     private int affinity = 50;  // Affinity between 0 and 100
     private boolean isHero;
+	private static final int INVENTORY_MAXIMUM_SIZE = 10;
     
     protected final ArrayList<String> NAMES = new ArrayList<>(); //Possible names 
     
-    
     private static final Scanner SCANNER = new Scanner(System.in);
-    public Castaway(boolean isHero) {
+    
+	public Castaway(boolean isHero) {
         int numberOfNames;    
         int nameNumber;
         NAMES.add("MICHEL");
@@ -68,8 +70,17 @@ public class Castaway {
     }
     
     /**
+     * Provide the castaway a whole new random inventory
+     */
+    public void createRandomInventory() {
+    	for (int i = 0 ; i < INVENTORY_MAXIMUM_SIZE ; i++) {
+    		addItemToInventory(World.getInstance().getRandomItem());
+    	}
+    }
+    
+    /**
      * Steal randomly an object of a castaway's inventory
-     * @param stolenPlayer Catsaway to steal
+     * @param stolenPlayer Castaway to steal
      */
     public void steal(Castaway stolenPlayer){
         Item stolenItem;
@@ -79,7 +90,7 @@ public class Castaway {
         {
             Gui.displayError("Apart from stealing her clothes, you can't take something from this poor guy");
         }
-        if(this.inventory.size() == 25)
+        if(this.inventory.size() == INVENTORY_MAXIMUM_SIZE)
         {
             Gui.displayError("Your inventory is already full");
         }
