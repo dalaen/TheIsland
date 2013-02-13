@@ -58,10 +58,12 @@ public class Castaway {
      * @param item Item to add to the inventory
      * @throws InventoryOutOfRange 
      */
-    public void addItemToInventory(Item item)
+    public void addItemToInventory(Item item) throws InventoryOutOfRange
     {
     	if (this.inventory.size() < INVENTORY_MAXIMUM_SIZE) {
     		this.inventory.add(item);
+    	} else {
+    		throw new InventoryOutOfRange();
     	}
     }
     
@@ -81,7 +83,12 @@ public class Castaway {
      */
     public void createRandomInventory() {
     	for (int i = 0 ; i < INVENTORY_MAXIMUM_SIZE ; i++) {
-    		addItemToInventory(World.getInstance().getRandomItem());
+    		try {
+				addItemToInventory(World.getInstance().getRandomItem());
+			} catch (InventoryOutOfRange e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     }
     
@@ -142,11 +149,36 @@ public class Castaway {
         }
     }
     
-    public void take(){
+    public void lookForItem() {
+    	int diceRoll = (new Random()).nextInt(20);
+    	
+        Item proposedItem = World.getInstance().getRandomItem();
         
+        if (diceRoll == 10) {
+        	removeHealth(50);
+        }
+        Gui.displayInline("You have found " + proposedItem.getName() + ". Do you want to keep it? (Y/n) ");
+        
+        if (Gui.promptYesNoQuestion(SCANNER) == true) {
+        	try {
+				addItemToInventory(proposedItem);
+			} catch (InventoryOutOfRange e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     }
     
-    /**
+    private void removeHealth(int i) {
+		// TODO Auto-generated method stub
+		if (health - i <= 0) {
+			// TODO: Castaway dies
+		} else {
+			health -= i;
+		}
+	}
+
+	/**
      * Speak with another castaway, increase moral and affinity
      * @param player1  Castaway you want to speak with
      */
@@ -321,11 +353,15 @@ public class Castaway {
      * Display the inventory
      */
     public void displayInventory() {
-    	int i = 0;
-    	
-    	Gui.display("Hero's inventory");
-    	for (Item item : inventory) {
-    		Gui.display((i++ + 1) + ". " + item.getName());
+    	if (inventory.isEmpty()) {
+    		Gui.display("Your inventory is empty...");
+    	} else {
+	    	int i = 0;
+	    	
+	    	Gui.display("Hero's inventory");
+	    	for (Item item : inventory) {
+	    		Gui.display((i++ + 1) + ". " + item.getName());
+	    	}
     	}
     }
     
