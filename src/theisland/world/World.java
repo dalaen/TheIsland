@@ -1,11 +1,16 @@
 package theisland.world;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 import theisland.castaway.Castaway;
 import theisland.gui.Gui;
+import theisland.item.Item;
+import theisland.item.food.ChickenLeg;
+import theisland.item.food.Food;
+import theisland.item.food.Mushroom;
 import theisland.savesystem.Load;
 import theisland.world.exception.*;
 
@@ -27,7 +32,7 @@ public final class World {
     
     private World() {
     }
-    
+        
     /**
      * This function is called upon world creation
      */
@@ -150,7 +155,7 @@ public final class World {
     /**
      * Give access to the castaway by its id
      * @param id the castaway id (0 = hero)
-     * @return the seeked castaway
+     * @return the sought castaway
      */
     public Castaway getCastaway(int id) {
     	if (id >= 0 && id < MAXIMUM_CASTAWAY) {
@@ -160,17 +165,25 @@ public final class World {
     }
     
     /**
+     * Give direct access to the hero
+     * @return the hero's data
+     */
+    public Castaway getHero() {
+    	return getCastaway(0);
+    }
+    
+    /**
      * Initialize the castaways
      * @param numberOfCastaway the number of castaway
      */
     public void initCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
     	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
+    		// TODO: Add custom hero name
     		addCastaway(new Castaway("Hero", true));
     		
     		int i;
     		for (i = 1 ; i < numberOfCastaway ; i++) {
-    			// TODO: NO!!!!!
-    			addCastaway(new Castaway("castaway_"+i, false));
+    			addCastaway(new Castaway(false));
     		}
     	} else if (numberOfCastaway > MAXIMUM_CASTAWAY) {
     		throw new TooManyCastaway();
@@ -208,6 +221,20 @@ public final class World {
      */
     public Weather getWeather() {
     	return weather;
+    }
+    
+    /**
+     * Give a random item with the same probability for each object
+     * @return a random item created within the method
+     */
+    public Item getRandomItem() {
+    	int diceRoll = (new Random()).nextInt(100);
+    	
+    	if (diceRoll >= 50 && diceRoll < 100) {
+    		return new ChickenLeg();
+    	} else {
+    		return new Mushroom();
+    	}
     }
     
     /**
