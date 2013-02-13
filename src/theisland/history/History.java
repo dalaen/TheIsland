@@ -14,15 +14,17 @@ import theisland.gui.Gui;
  */
 public class History {
     
+	private final static int WAITING_TIME = 2000;
+	
     /**
      * Display the introduction of the game 
      * @param mode Mode of the game : 1 for solo mode, 0 for multiplayer mode
      */
-    public void displayIntroduction(int mode){
+    public static void displayIntroduction(int mode){
         Gui.display("On a beautiful summer day, the passengers of Flight 4125 from New York to Tahiti are serene, the flight is going well and dozens of beautiful islands are visible from the plane ...");
         
         try {
-            Thread.sleep(2000);
+            Thread.sleep(WAITING_TIME);
         } catch (InterruptedException ex) {
             Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -30,7 +32,7 @@ public class History {
         Gui.display("But suddenly, a terrible noise is heard, the plane began to shake, turn on itself and fall steeply to the sea ... Everyone starts screaming ...");
         
         try {
-            Thread.sleep(2000);
+            Thread.sleep(WAITING_TIME);
         } catch (InterruptedException ex) {
             Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,7 +46,7 @@ public class History {
         }
         
           try {
-            Thread.sleep(2000);
+            Thread.sleep(WAITING_TIME);
         } catch (InterruptedException ex) {
             Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
         }
