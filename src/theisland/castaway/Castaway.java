@@ -56,10 +56,13 @@ public class Castaway {
     /**
      * Add an item to the inventory of the castaway, decrease affinity
      * @param item Item to add to the inventory
+     * @throws InventoryOutOfRange 
      */
     public void addItemToInventory(Item item)
     {
-        this.inventory.add(item);
+    	if (this.inventory.size() < INVENTORY_MAXIMUM_SIZE) {
+    		this.inventory.add(item);
+    	}
     }
     
     public void deleteItemFromInventory(Item item)
