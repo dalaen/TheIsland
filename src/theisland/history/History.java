@@ -43,12 +43,22 @@ public class History {
             Gui.display("Sunlight wake you up, you're lying on the beach, the carcass of the plane, decomposed, is a little farther down the beach.Bodies are floating on the water, a person runs to you and asks if you're okay ... ");
         }
         
-          try {
+        try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
         }
           
-          
+        Gui.display("If you want to survive, you will have to find yourself items which help you like food, materials, in order to create a caban and make fire for example ... ");
+                 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Gui.display("I advise you to search items and to eat something each day, because you have to keep your health and your energy, moreover, speak with us if you want to keep your moral ! Good luck !!");
+  
     }
+    
 }
