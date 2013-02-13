@@ -10,6 +10,7 @@ import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingExcepti
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 import theisland.castaway.Castaway;
+import theisland.castaway.exception.InventoryOutOfRange;
 import theisland.castaway.exception.NameOutOfRange;
 import theisland.gui.Gui;
 import theisland.item.Item;
@@ -154,7 +155,7 @@ public final class Load implements Loadable {
 					} // Let's prepare our inventory...
 					try {
 						castaway.addItemToInventory((Item) iStream.readObject());
-					} catch (ClassNotFoundException | IOException e) {
+					} catch (ClassNotFoundException | IOException | InventoryOutOfRange e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
