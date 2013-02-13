@@ -11,6 +11,11 @@ package theisland.castaway.exception;
 public class EnergyOutOfRange extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8069703646247487753L;
+
+	/**
      * Creates a new instance of
      * <code>EnergyOutOfRange</code> without detail message.
      */

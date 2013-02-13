@@ -8,7 +8,11 @@ import theisland.item.Item;
  * @author Xavier
  */
 public abstract class Food extends Item {
-    private boolean isRotten;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -978387935297724604L;
+	private boolean isRotten;
     protected int lifetime;
     
     Food() {

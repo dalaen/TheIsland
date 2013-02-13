@@ -11,6 +11,11 @@ package theisland.castaway.exception;
 public class HealthOutOfRange extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 116537499066114445L;
+
+	/**
      * Creates a new instance of
      * <code>HealthOutOfRange</code> without detail message.
      */

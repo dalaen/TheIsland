@@ -11,6 +11,11 @@ package theisland.castaway.exception;
 public class MoralOutOfRange extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2645080932240717803L;
+
+	/**
      * Creates a new instance of
      * <code>MoralOutOfRange</code> without detail message.
      */

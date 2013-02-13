@@ -11,6 +11,11 @@ package theisland.castaway.exception;
 public class NameOutOfRange extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4046591275743081654L;
+
+	/**
      * Creates a new instance of
      * <code>NameOutOfRange</code> without detail message.
      */
