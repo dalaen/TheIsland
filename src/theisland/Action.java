@@ -3,8 +3,6 @@
  */
 package theisland;
 
-import theisland.gui.Gui;
-
 /**
  * @author xavier
  *
@@ -17,5 +15,8 @@ public enum Action {
 	STEAL,
 	TRADE,
 	THROW,
-	SLEEP;
+	SLEEP,
+	CST1,
+	CST2,
+	CST3;
 }

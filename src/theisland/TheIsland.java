@@ -53,6 +53,8 @@ public class TheIsland {
         	// Jeter un objet
         	// Dormir
         	whatToDo = Gui.promptUserAction(SCANNER);
+        	WORLD.keyboardTip(whatToDo);
+        	
         	if (HERO.getMoral() == 0) {
         		Gui.display("You are not going well... Boulimia is watching upon you!");
         		whatToDo = Action.EAT;
