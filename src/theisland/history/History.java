@@ -36,12 +36,8 @@ public class History {
         } catch (InterruptedException ex) {
             Logger.getLogger(History.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(mode.equals(Mode.SOLO)) {
-            Gui.display("Sunlight wake you up, you're lying on the beach, the carcass of the plane, decomposed, is a little farther down the beach.Bodies are floating on the water and nobody seems to have survived apart from you ... ");
-        }
     
-        if(mode.equals(Mode.MULTIPLAYER)) {
+        if(mode.equals(Mode.SOLO)) {
             Gui.display("Sunlight wake you up, you're lying on the beach, the carcass of the plane, decomposed, is a little farther down the beach.Bodies are floating on the water, a person runs to you and asks if you're okay ... ");
         }
         
