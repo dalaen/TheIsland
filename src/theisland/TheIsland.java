@@ -37,6 +37,12 @@ public class TheIsland {
         	Save.getInstance().saveWorldData(WORLD);
         	Save.getInstance().saveAllCharacterData(WORLD);
         	
+        	if (HERO.getEnergy() == 0) {
+        		Gui.display("You are fainting...");
+        		HERO.removeHealth(10);
+        		WORLD.nextDay();
+        	}
+        	
         	Gui.displayHud(HERO, WORLD);
         	// Utiliser un objet
         	// Manger un objet
@@ -61,8 +67,7 @@ public class TheIsland {
 	        		do {
 	        			choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
 	        		} while (choice < 0 || choice > (HERO.getInventory().size() - 1));
-	        		// TODO: Change this function to use()
-	        		HERO.getInventory().get(choice).eat();
+	        		HERO.getInventory().get(choice).use();
         		}
         	} else if (whatToDo.equals(Action.EAT)) {
         		HERO.displayInventory();
@@ -121,6 +126,5 @@ public class TheIsland {
         }
         
         SCANNER.close();
-        //World.getInstance().getHero().displayInventory();
     }
 }
