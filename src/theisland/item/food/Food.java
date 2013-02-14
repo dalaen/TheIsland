@@ -16,6 +16,7 @@ public abstract class Food extends Item {
     protected int lifetime;
     
     Food() {
+    	isFood = true;
         lifetime = 0;
         isRotten = true;
     }
