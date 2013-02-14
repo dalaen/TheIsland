@@ -54,8 +54,6 @@ public final class Load implements Loadable {
 		// Handle world properties
 		prefix = "world.";
 
-		// TODO: Add security to loaded values (do they exist?)
-
 		// Get the weather
 		// If none, default weather will be loaded
 		if (save.containsKey(prefix + "weather")) {
