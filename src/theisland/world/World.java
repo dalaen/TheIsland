@@ -28,7 +28,7 @@ public final class World {
     private Weather weather = Weather.STORM;
     private int dayNumber = 1;
     private boolean worldCreated = false;
-    private boolean isNew;
+    private boolean newGame;
     
     private World() {
     }
@@ -43,7 +43,7 @@ public final class World {
 	    		// Load previous game
 	    		if (promptUserIfLoadGame()) {
 	    			saveCorrupted = Load.getInstance().load();
-	    			isNew = false;
+	    			newGame = false;
 	    		} else {
 	    			promptCastawayNumber();
 	    		}
@@ -74,7 +74,7 @@ public final class World {
 			}
         }
         
-        isNew = true;
+        newGame = true;
     }
     
     private boolean promptUserIfLoadGame() {
@@ -280,7 +280,7 @@ public final class World {
     }
     
     public boolean isNew() {
-		return isNew;
+		return newGame;
 	}
 
 	/**
