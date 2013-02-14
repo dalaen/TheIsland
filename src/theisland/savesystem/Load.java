@@ -79,6 +79,15 @@ public final class Load implements Loadable {
 				e.printStackTrace();
 			}
 		}
+		
+		// Get the cabin state
+		if (save.containsKey(prefix + "cabinBuilt")) {
+			if (save.getProperty(prefix + "cabinBuilt").equals("true")) {
+				World.getInstance().setCabinBuilt(true);
+			} else if (save.getProperty(prefix + "cabinBuilt").equals("false")) {
+				World.getInstance().setCabinBuilt(false);
+			}
+		}
 
 		// Restore all the castaway statuses
 		for (int i = 0 ; i < numberOfCastaway ; i++) {

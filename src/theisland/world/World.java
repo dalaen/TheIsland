@@ -8,6 +8,8 @@ import java.util.Scanner;
 import theisland.castaway.Castaway;
 import theisland.gui.Gui;
 import theisland.item.Item;
+import theisland.item.Stone;
+import theisland.item.Wood;
 import theisland.item.food.ChickenLeg;
 import theisland.item.food.Food;
 import theisland.item.food.Mushroom;
@@ -27,6 +29,7 @@ public final class World {
     private ArrayList<Castaway> castaways = new ArrayList<Castaway>();
     private Weather weather = Weather.STORM;
     private int dayNumber = 1;
+    private boolean cabinBuilt = false;
     private boolean worldCreated = false;
     private boolean newGame;
     
@@ -68,7 +71,6 @@ public final class World {
 			} catch (TooManyCastaway | TooFewCastaway e) {
 				Gui.displayError("You cannot either play with more than "+ MAXIMUM_CASTAWAY +" castaway, or play alone!");
 				// Prompts the user again
-				// TODO: fix display error
 	        	Gui.displayInline("How many castaway are on the island? ");
 	            enteredNumber = SCANNER.nextInt();
 			}
@@ -130,7 +132,7 @@ public final class World {
     			diceRoll = (new Random()).nextInt(50);
     			if (diceRoll == 25) {
     				Gui.display(getCastaway(i).getName() + " is luring at you... He's eating you!!");
-    				// TODO: Hero dies
+    				castawayDeath(getHero());
     			}
     		}
     	}
@@ -210,7 +212,6 @@ public final class World {
      */
     public void initCastaway(int numberOfCastaway) throws TooManyCastaway, TooFewCastaway {
     	if (numberOfCastaway <= MAXIMUM_CASTAWAY && numberOfCastaway > 1) {
-    		// TODO: Add custom hero name
     		addCastaway(new Castaway("Hero", true));
     		
     		int i;
@@ -264,10 +265,14 @@ public final class World {
     public Item getRandomItem() {
     	int diceRoll = (new Random()).nextInt(100);
     	
-    	if (diceRoll >= 50 && diceRoll < 100) {
+    	if (diceRoll >= 75 && diceRoll < 100) {
     		return new ChickenLeg();
-    	} else {
+    	} else if (diceRoll >= 50 && diceRoll < 75) {
     		return new Mushroom();
+    	} else if (diceRoll >= 25 && diceRoll < 50) {
+    		return new Stone();
+    	} else {
+    		return new Wood();
     	}
     }
     
@@ -296,4 +301,52 @@ public final class World {
     private void endGame() {
     	Gui.display("You won! :D");
     }
+
+	public void castawayDeath(Castaway castaway) {
+		if (castaway.isHero()) {
+			gameOver();
+		} else {
+			castaways.remove(castaway);
+		}
+	}
+
+	private void gameOver() {
+		Gui.display("You are dead... Ahahahah");
+	}
+
+	/**
+	 * Try to build a cabin
+	 * Required mats: 2 woods, 1 stone
+	 */
+	public void tryBuildCabin() {
+		int requiredNumberOfWood = 2;
+		int requiredNumberOfStone = 1;
+		
+		for (Item item : getHero().getInventory()) {
+			if (item.getClass() == Wood.class) {
+				requiredNumberOfWood--;
+			} else if (item.getClass() == Stone.class) {
+				requiredNumberOfStone--;
+			}
+		}
+		
+		if (requiredNumberOfWood <= 0 && requiredNumberOfStone <= 0) {
+			cabinBuilt = true;
+		}
+	}
+	
+	/**
+	 * Destroys the cabin
+	 */
+	public void destroyCabin() {
+		cabinBuilt = false;
+	}
+
+	public void setCabinBuilt(boolean cabinBuilt) {
+		this.cabinBuilt = cabinBuilt;
+	}
+
+	public boolean isCabinBuilt() {
+		return cabinBuilt;
+	}
 }
