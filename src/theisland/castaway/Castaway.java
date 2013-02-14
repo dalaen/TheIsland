@@ -186,19 +186,19 @@ public class Castaway {
     	player1.addMoral(10);
     	player1.addAffinity(10);
         
-        if(player1.moral >= 50)
+        if(this.moral >= 50)
         {
             Gui.display("- How are you ?");
             Gui.display("- I'm fine what about you ?");
             Gui.display("- Me too, thanks!");
         }
-        else if(player1.moral < 50 && player1.moral > 20)
+        else if(this.moral < 50 && this.moral > 20)
         {
             Gui.display("- The weather is pretty good today");
             Gui.display("- Ya, but I'm not motivated to do anything ...");
             Gui.display("- Don't worry, you'll feel better tomorrow!");
         }
-        else if(player1.moral <= 20)
+        else if(this.moral <= 20)
         {
             Gui.display("- You look bad, you okay ??");
             Gui.display("- Yes, I'm tired of being here ...");
