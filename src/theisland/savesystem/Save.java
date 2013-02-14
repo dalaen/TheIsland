@@ -13,6 +13,11 @@ import theisland.gui.Gui;
 import theisland.item.Item;
 import theisland.world.World;
 
+/**
+ * The Save class manages to save the game data onto the user's hard drive, in order to keep it through the time.
+ * @author Xavier
+ *
+ */
 public final class Save implements Savable {
 	private final static Save INSTANCE = new Save();
 	private static Properties save = new Properties();
@@ -68,12 +73,20 @@ public final class Save implements Savable {
 		write();
 	}
 	
+	/**
+	 * Save all the characters existing in the world instance.
+	 * @param world the world instance to save data from
+	 */
 	public void saveAllCharacterData(World world) {
 		for (int i = 0 ; i < world.getNumberOfCastaway() ; i++) {
 			saveCharacterData(world.getCastaway(i), i);
 		}
 	}
 
+	/**
+	 * Save the world data
+	 * @param world the world instance to save data from
+	 */
 	public void saveWorldData(World world) {
 		save.setProperty("world.weather", world.getWeather().toString());
 		save.setProperty("world.numberOfCastaway", new Integer(world.getNumberOfCastaway()).toString());

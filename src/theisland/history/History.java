@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import theisland.gui.Gui;
 
 /**
- *
+ * The History class is introducing the context to the player when he starts a game.
  * @author isen
  */
 public class History {

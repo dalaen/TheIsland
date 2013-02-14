@@ -6,7 +6,7 @@ import theisland.gui.Gui;
 import theisland.world.World;
 
 /**
- *
+ * The Mushroom is a food item in the game.
  * @author Xavier
  */
 public class Mushroom extends Food {
@@ -17,6 +17,9 @@ public class Mushroom extends Food {
 	private final int MAXIMUM_LIFETIME = 4;
     private final String[] MUSHROOM_POSSIBILITIES = {"Champignon de Paris", "Morille"};
     
+    /**
+     * Create a mushroom, setting its properties.
+     */
     public Mushroom() {
         int diceRoll;
         
@@ -53,9 +56,4 @@ public class Mushroom extends Food {
         	Gui.display("You gained 10 energy!");
         }
     }
-
-	@Override
-	public void use() {
-		this.eat();
-	}
 }

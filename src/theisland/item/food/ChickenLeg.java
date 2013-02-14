@@ -7,7 +7,7 @@ import theisland.item.Explodable;
 import theisland.world.World;
 
 /**
- *
+ * A ChickenLeg is a piece of Food, which can be dangerous and explode.
  * @author Xavier
  */
 public class ChickenLeg extends Food implements Explodable {
@@ -17,6 +17,9 @@ public class ChickenLeg extends Food implements Explodable {
 	private static final long serialVersionUID = -2966331841836108616L;
 	private final int MAXIMUM_LIFETIME = 2;
     
+	/**
+	 * Create a Chicken leg, which can be rotten from the start.
+	 */
     public ChickenLeg() {
         setName("Chicken Leg");
         
@@ -51,7 +54,11 @@ public class ChickenLeg extends Food implements Explodable {
 	        }
         }
     }
-
+    
+    /**
+     * Test if the chicken leg will explode when it's called.
+     * @return true if the chicken leg exploded, false otherwise.
+     */
 	@Override
 	public boolean explode() {
 		int diceRoll = (new Random()).nextInt(15);
@@ -62,10 +69,5 @@ public class ChickenLeg extends Food implements Explodable {
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void use() {
-		this.eat();
 	}
 }

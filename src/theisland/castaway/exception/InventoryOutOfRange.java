@@ -7,7 +7,7 @@ package theisland.castaway.exception;
 import theisland.gui.Gui;
 
 /**
- *
+ * The InventoryOutOfRange exception occurs when you try to add an item in the inventory, and this one is already full.
  * @author isen
  */
 public class InventoryOutOfRange extends Exception {
@@ -22,7 +22,7 @@ public class InventoryOutOfRange extends Exception {
      * <code>InventoryOutOfRange</code> without detail message.
      */
     public InventoryOutOfRange() {
-        Gui.display("Your inventory is allready full !");
+        Gui.display("Your inventory is already full !");
     }
 
     /**

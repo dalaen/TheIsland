@@ -3,7 +3,8 @@ package theisland.item;
 import java.io.Serializable;
 
 /**
- *
+ * The Item class is the master class for any items created in the game.
+ * It may implement the Serializable interface if you wish to save in a file your current set of item.
  * @author Xavier
  */
 public abstract class Item implements Serializable {
@@ -11,7 +12,7 @@ public abstract class Item implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3377128896015718496L;
-	private String name;
+	protected String name;
 	protected boolean isFood;
     
     /**

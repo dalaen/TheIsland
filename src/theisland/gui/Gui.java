@@ -7,7 +7,7 @@ import theisland.castaway.Castaway;
 import theisland.world.World;
 
 /**
- *
+ * The Gui class handles everything about the user interface
  * @author Xavier
  */
 public class Gui {

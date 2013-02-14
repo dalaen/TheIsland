@@ -18,6 +18,11 @@ import theisland.world.World;
 import theisland.world.exception.InvalidDayNumber;
 import theisland.world.exception.TooManyCastaway;
 
+/**
+ * The Load class purpose is to load a saved game from a file, on the user's drive.
+ * @author Xavier
+ *
+ */
 public final class Load implements Loadable {
 	private final static Load INSTANCE = new Load();
 	private static Properties save = new Properties();
@@ -32,7 +37,7 @@ public final class Load implements Loadable {
 
 	/**
 	 * Load from configuration file
-	 * @return true if loading has been correctly fulfilled, false if any mistake occurred
+	 * @return true if loading procedure has been correctly fulfilled, false if any mistake occurred
 	 */
 	public boolean load() {
 		try {

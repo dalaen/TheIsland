@@ -5,7 +5,7 @@ package theisland;
 
 /**
  * @author xavier
- *
+ * Different actions to make during a classical day
  */
 public enum Action {
 	USE,

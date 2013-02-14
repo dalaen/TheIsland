@@ -7,7 +7,7 @@ package theisland.castaway.exception;
 import theisland.gui.Gui;
 
 /**
- *
+ * The NameOutOfRange exception occurs when the name of the character is either too short, or exceeds 20 characters.
  * @author isen
  */
 public class NameOutOfRange extends Exception {

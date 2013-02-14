@@ -8,27 +8,32 @@ import theisland.world.World;
 
 /**
  * @author xavier
- *
+ * A piece of Wood that can be used to build a cabin.
  */
 public class Wood extends Item {
 
 	private static final long serialVersionUID = -4889222304123652433L;
 
+	/**
+	 * Create a piece of Wood with its own properties.
+	 */
 	public Wood() {
 		setName("Wood");
 	}
 	
-	/* (non-Javadoc)
-	 * @see theisland.item.Item#eat()
+	/**
+	 * Allows the castaway to actually eat the Wood piece. Yes, this might hurt!
 	 */
 	@Override
 	public void eat() {
-		// TODO Auto-generated method stub
 		World.getInstance().getHero().removeHealth(15);
 		World.getInstance().getHero().removeMoral(15);
 		Gui.display("It hurts your teeth! You lost 15 health and 15 moral.");
 	}
 
+	/**
+	 * Use a wood piece to try building a cabin along with other items in the castaway's inventory.
+	 */
 	@Override
 	public void use() {
 		World.getInstance().tryBuildCabin();

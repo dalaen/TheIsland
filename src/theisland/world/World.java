@@ -18,7 +18,7 @@ import theisland.savesystem.Load;
 import theisland.world.exception.*;
 
 /**
- *
+ * The World class handles everything about the game. It manages the world the character and the other castaways are evolving in.
  * @author Xavier
  */
 public final class World {
@@ -353,6 +353,10 @@ public final class World {
     	}
     }
     
+    /**
+     * 
+     * @return true if the world is new and fresh
+     */
     public boolean isNew() {
 		return newGame;
 	}
@@ -364,6 +368,10 @@ public final class World {
     	Gui.display("You won! :D");
     }
 
+    /**
+     * Provoke the death of a castaway living in the world
+     * @param castaway the doomed and dead castaway
+     */
 	public void castawayDeath(Castaway castaway) {
 		if (castaway.isHero()) {
 			gameOver();
@@ -413,10 +421,18 @@ public final class World {
 		cabinBuilt = false;
 	}
 
+	/**
+	 * Set if the cabin is built. Used mostly from the loading process.
+	 * @param cabinBuilt
+	 */
 	public void setCabinBuilt(boolean cabinBuilt) {
 		this.cabinBuilt = cabinBuilt;
 	}
 
+	/**
+	 * 
+	 * @return true if the cabin is built, false otherwise.
+	 */
 	public boolean isCabinBuilt() {
 		return cabinBuilt;
 	}
