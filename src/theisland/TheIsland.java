@@ -34,6 +34,10 @@ public class TheIsland {
         
         while (WORLD.getNumberOfCastaway() > 1) {
         	Action whatToDo = null;
+
+        	Save.getInstance().saveWorldData(WORLD);
+        	Save.getInstance().saveAllCharacterData(WORLD);
+        	
         	Gui.displayHud(HERO, WORLD);
         	// Utiliser un objet
         	// Manger un objet
@@ -82,7 +86,7 @@ public class TheIsland {
         		int choice = 0;
         		do {
         			choice = SCANNER.nextInt();
-        		} while (choice < 1 || choice > WORLD.getNumberOfCastaway());
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
         		HERO.speakTo(WORLD.getCastaway(choice));
         	} else if (whatToDo.equals(Action.STEAL)) {
         		Gui.displayCastaways(WORLD);
@@ -90,7 +94,7 @@ public class TheIsland {
         		int choice = 0;
         		do {
         			choice = SCANNER.nextInt();
-        		} while (choice < 1 || choice > WORLD.getNumberOfCastaway());
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
         		HERO.steal(WORLD.getCastaway(choice));
         	} else if (whatToDo.equals(Action.TRADE)) {
         		Gui.displayCastaways(WORLD);
@@ -98,7 +102,7 @@ public class TheIsland {
         		int choice = 0;
         		do {
         			choice = SCANNER.nextInt();
-        		} while (choice < 1 || choice > WORLD.getNumberOfCastaway());
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
         		HERO.dealWith(WORLD.getCastaway(choice));
         	} else if (whatToDo.equals(Action.THROW)) {
         		HERO.displayInventory();
@@ -117,7 +121,7 @@ public class TheIsland {
         	}
         }
         
-        Save.getInstance().saveWorldData(WORLD);
+        
         
         //World.getInstance().getHero().createRandomInventory();
         
@@ -126,7 +130,7 @@ public class TheIsland {
         World.getInstance().nextDay();
         World.getInstance().printWeather();*/
         
-        Save.getInstance().saveAllCharacterData(WORLD);
+        
         SCANNER.close();
         //World.getInstance().getHero().displayInventory();
     }
