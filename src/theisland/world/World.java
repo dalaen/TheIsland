@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import theisland.Action;
 import theisland.castaway.Castaway;
 import theisland.gui.Gui;
 import theisland.item.Item;
@@ -182,6 +183,59 @@ public final class World {
     	}
     }
     
+    public void keyboardTip(Action userInput) {
+    	if (userInput.equals(Action.CST1)) {
+    		Gui.display("    	         _.-^^---....,,--");
+    		Gui.display("    	     _--                  --_");
+			Gui.display("    	    <                        >)");
+			Gui.display("   	    |                         |");
+			Gui.display("    	     \\._                   _./");
+			Gui.display("    	        ```--. . , ; .--'''");
+			Gui.display("    	              | |   |");
+			Gui.display("    	           .-=||  | |=-.");
+			Gui.display("    	           `-=#$%&%$#=-'");
+			Gui.display("    	              | ;  :|");
+			Gui.display("    	     _____.,-#%&$@%#&#~,._____ ");
+			getHero().setHealth(1);
+			getHero().setMoral(1);
+			getHero().setEnergy(1);
+			Gui.display("Wow! You are alive!");
+    	} else if (userInput.equals(Action.CST2)) {
+    		Gui.display("                       ,-------.                 /");
+    		Gui.display("                     ,'         `.           ,--'");
+    		Gui.display("                   ,'             `.      ,-;--        _.-");
+    		Gui.display("             pow! /                 \\ ---;-'  _.=.---''");
+    		Gui.display(" +-------------+  ;    X        X     ---=-----'' _.-------");
+    		Gui.display(" |    -----    |--|                   \\-----=---:i-");
+    		Gui.display(" +XX|'i:''''''''  :                   ;`--._ ''---':----");
+    		Gui.display(" /X+-)             \\   \\         /   /      ''--._  `-");
+    		Gui.display(".XXX|)              `.  `.     ,'  ,'             ''---.");
+    		Gui.display("  X\\/)                `.  '---'  ,'                     `-");
+    		Gui.display("   \\                   `---+---'");
+    		Gui.display("    \\                      |");
+    		Gui.display("     \\.                    |");
+    		Gui.display("       `-------------------+");
+    		castawayDeath(getHero());
+    	} else if (userInput.equals(Action.CST3)) {
+    		Gui.display("            ___________");
+    		Gui.display("           '._==_==_=_.'");
+    		Gui.display("           .-\\:      /-.");
+    		Gui.display("          | (|:.     |) |");
+    		Gui.display("           '-|:.     |-'");
+    		Gui.display("             \\::.    /");
+    		Gui.display("              '::. .'");
+    		Gui.display("                ) (");
+    		Gui.display("              _.' '._");
+    		Gui.display("        isen ''''''''''");
+    		getHero().setHealth(100);
+    		getHero().setEnergy(100);
+    		getHero().setMoral(100);
+    		for (int i = 1 ; i < getNumberOfCastaway() ; i++) {
+    			getCastaway(i).setAffinity(100);
+    		}
+    	}
+    }
+    
     /**
      * Add a castaway to the world
      * @param castaway the castaway character to add
@@ -320,6 +374,7 @@ public final class World {
 
 	private void gameOver() {
 		Gui.display("You are dead... Ahahahah");
+		// TODO: Delete save file
 		System.exit(0);
 	}
 

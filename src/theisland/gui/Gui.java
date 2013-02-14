@@ -64,16 +64,19 @@ public class Gui {
     	Gui.display("8. Sleep until tomorrow");
     	Gui.displayInline("What do you want to do now? ");
     	
-    	int choice = sc.nextInt();
+    	String choice = sc.next();
     	
     	switch(choice) {
-    	case 1: return Action.USE;
-    	case 2: return Action.EAT;
-    	case 3: return Action.LOOKFOR; 
-    	case 4: return Action.SPEAK; 
-    	case 5: return Action.STEAL; 
-    	case 6: return Action.TRADE; 
-    	case 7: return Action.THROW; 
+    	case "1": return Action.USE;
+    	case "2": return Action.EAT;
+    	case "3": return Action.LOOKFOR; 
+    	case "4": return Action.SPEAK; 
+    	case "5": return Action.STEAL; 
+    	case "6": return Action.TRADE; 
+    	case "7": return Action.THROW;
+    	case "morelle": return Action.CST1;
+    	case "allain": return Action.CST2;
+    	case "isen": return Action.CST3;
     	default: return Action.SLEEP;
     	}
     }
