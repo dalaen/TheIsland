@@ -201,15 +201,6 @@ public class Castaway {
 			}
         }
     }
-    
-    private void removeHealth(int i) {
-		// TODO Auto-generated method stub
-		if (health - i <= 0) {
-			// TODO: Castaway dies
-		} else {
-			health -= i;
-		}
-	}
 
 	/**
      * Speak with another castaway, increase moral and affinity
@@ -419,7 +410,42 @@ public class Castaway {
             this.health = health;
         }
     }
+    
+    private void removeHealth(int i) {
+		// TODO Auto-generated method stub
+		if (i > 0) {
+	    	if (health - i <= 0) {
+				// TODO: Castaway dies
+			} else {
+				health -= i;
+			}
+		}
+	}
 
+    /**
+     * Add an amount of energy to the castaway
+     * @param energy the energy to add
+     */
+    public void addEnergy(int energy) {
+    	if (energy > 0) {
+	    	if ((this.energy + energy) < 100) {
+	    		this.energy += energy;
+	    	}
+    	}
+    }
+    
+    /**
+     * Remove an amount of energy to the castaway
+     * @param energy the energy to remove
+     */
+    public void removeEnergy(int energy) {
+    	if (energy > 0) {
+    		if ((this.energy - energy) > 0) {
+    			this.energy -= energy;
+    		}
+    	}
+    }
+    
     /**
      * Set the energy of the castaway
      * @param energy the energy to set
