@@ -45,6 +45,10 @@ public class Mushroom extends Food {
         	World.getInstance().getHero().removeHealth(50);
         	Gui.display("You lost 15 energy and 50 health! Ay...");
         } else {
+        	int diceRoll = (new Random()).nextInt(2);
+        	if (diceRoll == 1) {
+        		World.getInstance().getHero().addHealth(20);
+        	}
         	World.getInstance().getHero().addEnergy(10);
         	Gui.display("You gained 10 energy!");
         }
