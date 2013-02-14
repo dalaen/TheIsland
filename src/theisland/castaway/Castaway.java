@@ -24,7 +24,7 @@ public class Castaway {
 	private boolean isHero;
 	private static final int INVENTORY_MAXIMUM_SIZE = 10;
 
-	protected final ArrayList<String> NAMES = new ArrayList<>(); // Possible names
+	private final ArrayList<String> NAMES = new ArrayList<>(); // Possible names
 
 	private static final Scanner SCANNER = new Scanner(System.in);
 
