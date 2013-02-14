@@ -4,6 +4,7 @@ import java.util.Random;
 
 import theisland.gui.Gui;
 import theisland.item.Explodable;
+import theisland.world.World;
 
 /**
  *
@@ -40,11 +41,11 @@ public class ChickenLeg extends Food implements Explodable {
         super.eat();
         
         if (isRotten) {
-        	HERO.removeEnergy(15);
-        	HERO.removeHealth(15);
+        	World.getInstance().getHero().removeEnergy(15);
+        	World.getInstance().getHero().removeHealth(15);
         	Gui.display("You lost 15 energy and health! Ay...");
         } else {
-        	HERO.addEnergy(20);
+        	World.getInstance().getHero().addEnergy(20);
         	Gui.display("You gained 20 energy!");
         }
     }
@@ -54,8 +55,8 @@ public class ChickenLeg extends Food implements Explodable {
 		int diceRoll = (new Random()).nextInt(15);
 		
 		if (diceRoll == 7) { // 1 chance upon 15
-			HERO.removeEnergy(15);
-			HERO.removeHealth(60);
+			World.getInstance().getHero().removeEnergy(15);
+			World.getInstance().getHero().removeHealth(60);
 			return true;
 		}
 		return false;
