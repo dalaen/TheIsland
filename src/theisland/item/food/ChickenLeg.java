@@ -38,15 +38,17 @@ public class ChickenLeg extends Food implements Explodable {
      * Eat a chicken leg
      */
     public void eat() {
-        super.eat();
-        
-        if (isRotten) {
-        	World.getInstance().getHero().removeEnergy(15);
-        	World.getInstance().getHero().removeHealth(15);
-        	Gui.display("You lost 15 energy and health! Ay...");
-        } else {
-        	World.getInstance().getHero().addEnergy(20);
-        	Gui.display("You gained 20 energy!");
+        if (!explode()) {
+	    	super.eat();
+	        
+	        if (isRotten) {
+	        	World.getInstance().getHero().removeEnergy(15);
+	        	World.getInstance().getHero().removeHealth(15);
+	        	Gui.display("You lost 15 energy and health! Ay...");
+	        } else {
+	        	World.getInstance().getHero().addEnergy(20);
+	        	Gui.display("You gained 20 energy!");
+	        }
         }
     }
 
