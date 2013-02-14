@@ -45,7 +45,7 @@ public class Gui {
      * @param hero the hero to display its details
      */
     public static void displayHud(Castaway hero, World world) {
-    	display("Day " + world.getDayNumber() + " – [Health]" + hero.getHealth() + " [Energy]" + hero.getEnergy() + " [Moral]" + hero.getMoral());
+    	display("Day " + world.getDayNumber() + " (" + world.getWeather().toString() + ") – [Health]" + hero.getHealth() + " [Energy]" + hero.getEnergy() + " [Moral]" + hero.getMoral());
     }
     
     /**
@@ -84,7 +84,7 @@ public class Gui {
      */
     public static boolean promptYesNoQuestion(Scanner sc) {
     	String enteredChoice = sc.nextLine();
-    	if (enteredChoice.equals("n") || enteredChoice.equals("N")) {
+    	if (enteredChoice.equalsIgnoreCase("n")) {
     		return false;
     	} else {
     		return true;
