@@ -124,7 +124,7 @@ public class Castaway {
           int itemNumber;
           
           inventorySize = stolenPlayer.inventory.size();
-          itemNumber = (new Random()).nextInt(inventorySize + 1);
+          itemNumber = (new Random()).nextInt(inventorySize);
           stolenItem = stolenPlayer.inventory.get(itemNumber);
           this.inventory.add(stolenItem);
           stolenPlayer.inventory.remove(itemNumber);
@@ -158,7 +158,8 @@ public class Castaway {
     	int diceRoll = (new Random()).nextInt(20);
     	
         Item proposedItem = World.getInstance().getRandomItem();
-    // TODO: Remove 5 energy safely
+        
+        removeEnergy(25);
         
         if (diceRoll == 10) {
         	removeHealth(50);
@@ -346,6 +347,7 @@ public class Castaway {
 	    	
 	    	Gui.display("Hero's inventory");
 	    	for (Item item : inventory) {
+	    		// TODO: Display if rotten
 	    		Gui.display((i++ + 1) + ". " + item.getName());
 	    	}
     	}
@@ -376,7 +378,7 @@ public class Castaway {
     	}
     }
     
-    private void removeHealth(int i) {
+    public void removeHealth(int i) {
 		// TODO Auto-generated method stub
 		if (i > 0) {
 	    	if (health - i <= 0) {
