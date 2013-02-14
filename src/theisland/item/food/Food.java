@@ -12,7 +12,7 @@ public abstract class Food extends Item {
 	 * 
 	 */
 	private static final long serialVersionUID = -978387935297724604L;
-	private boolean isRotten;
+	protected boolean isRotten;
     protected int lifetime;
     
     Food() {
