@@ -115,7 +115,21 @@ public final class World {
      * Process the events to get to the next day
      */
     public void nextDay() {
-        int diceRoll = (new Random()).nextInt(100);
+    	int diceRoll;
+    	getHero().addEnergy(10);
+    	
+    	for (int i = 1 ; i < getNumberOfCastaway() ; i++) {
+    		if (getCastaway(i).getAffinity() < 50) {
+    			diceRoll = (new Random()).nextInt(50);
+    			if (diceRoll == 25) {
+    				Gui.display(getCastaway(i).getName() + " is luring at you... He's eating you!!");
+    				// TODO: Hero dies
+    			}
+    		}
+    	}
+    	
+    	// New weather to the next day
+        diceRoll = (new Random()).nextInt(100);
         // Odds: 50% SUN, 16% RAIN, 17% SNOW, 17% STORM 
         if (diceRoll >= 83) {
             changeWeather(Weather.STORM);
