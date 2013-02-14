@@ -118,6 +118,13 @@ public final class World {
     	int diceRoll;
     	getHero().addEnergy(10);
     	
+    	for (Item item : getHero().getInventory()) {
+    		if (item.isFood()) {
+    			Food food = (Food) item;
+    			food.decreaseLifetime();
+    		}
+    	}
+    	
     	for (int i = 1 ; i < getNumberOfCastaway() ; i++) {
     		if (getCastaway(i).getAffinity() < 50) {
     			diceRoll = (new Random()).nextInt(50);
