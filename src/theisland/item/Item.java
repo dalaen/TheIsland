@@ -2,9 +2,6 @@ package theisland.item;
 
 import java.io.Serializable;
 
-import theisland.castaway.Castaway;
-import theisland.world.World;
-
 /**
  *
  * @author Xavier
@@ -21,6 +18,11 @@ public abstract class Item implements Serializable {
      * Eat the item. If the item is not eatable, this must produce a message!
      */
     public abstract void eat();
+    
+    /**
+     * Use the item. This could be to build something from it!
+     */
+    public abstract void use();
     
     /**
      * Set a new name to the Item

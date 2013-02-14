@@ -61,4 +61,9 @@ public class ChickenLeg extends Food implements Explodable {
 		}
 		return false;
 	}
+
+	@Override
+	public void use() {
+		this.eat();
+	}
 }

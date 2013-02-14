@@ -49,4 +49,9 @@ public class Mushroom extends Food {
         	Gui.display("You gained 10 energy!");
         }
     }
+
+	@Override
+	public void use() {
+		this.eat();
+	}
 }
