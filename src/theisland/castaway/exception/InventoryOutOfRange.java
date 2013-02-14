@@ -4,6 +4,8 @@
  */
 package theisland.castaway.exception;
 
+import theisland.gui.Gui;
+
 /**
  *
  * @author isen
@@ -20,6 +22,7 @@ public class InventoryOutOfRange extends Exception {
      * <code>InventoryOutOfRange</code> without detail message.
      */
     public InventoryOutOfRange() {
+        Gui.display("Your inventory is allready full !");
     }
 
     /**

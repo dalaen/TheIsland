@@ -4,6 +4,8 @@
  */
 package theisland.castaway.exception;
 
+import theisland.gui.Gui;
+
 /**
  *
  * @author isen
@@ -20,6 +22,7 @@ public class NameOutOfRange extends Exception {
      * <code>NameOutOfRange</code> without detail message.
      */
     public NameOutOfRange() {
+        Gui.display("Your name is not valid ! Please retry !");
     }
 
     /**
