@@ -4,11 +4,10 @@ package theisland.castaway;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import theisland.castaway.exception.*;
 import theisland.gui.Gui;
 import theisland.item.Item;
+import theisland.item.food.Food;
 import theisland.world.World;
 
 /**
@@ -72,18 +71,8 @@ public class Castaway {
      */
     public void care()
     {
-        if(this.energy > 10) {
-            this.energy = this.energy - 10;
-        } else if(this.energy <= 10) {
-            this.energy = 0;
-        }
-        
-        if(this.health <= 90) {
-            this.health = this.health + 10;
-        } else if(this.health > 90){
-            this.health = 100;
-        }
-            
+        removeEnergy(10);
+        addHealth(10);
     }
     
     /**
@@ -119,12 +108,8 @@ public class Castaway {
         Item stolenItem;
         int inventorySize;
         
-        if(this.energy > 5) {
-            this.energy = this.energy - 5;
-        }
-        else if(this.energy <= 5) {
-            this.energy = 0;
-        }
+        removeEnergy(5);
+        
         if(stolenPlayer.inventory.isEmpty())
         {
             Gui.displayError("Apart from stealing her clothes, you can't take something from this poor guy");
@@ -138,7 +123,7 @@ public class Castaway {
           int itemNumber;
           
           inventorySize = stolenPlayer.inventory.size();
-          itemNumber = (new Random()).nextInt(inventorySize + 1);
+          itemNumber = (new Random()).nextInt(inventorySize);
           stolenItem = stolenPlayer.inventory.get(itemNumber);
           this.inventory.add(stolenItem);
           stolenPlayer.inventory.remove(itemNumber);
@@ -146,15 +131,7 @@ public class Castaway {
           Gui.display(stolenItem.getName());
         }
         
-        if(stolenPlayer.affinity <= 10)
-        {
-            stolenPlayer.setAffinity(0);
-        }
-        else if(stolenPlayer.affinity > 10)
-        {
-            stolenPlayer.setAffinity(stolenPlayer.affinity - 10);
-        }
-        
+        stolenPlayer.removeAffinity(10);
     }
     
     /**
@@ -162,12 +139,7 @@ public class Castaway {
      * @param killedPlayer Castaway to kill
      */
     public void kill(Castaway killedPlayer){
-        if(this.energy > 20) {
-            this.energy = this.energy - 20;
-        }
-        else if(this.energy <= 20) {
-            this.energy = 0;
-        }
+        removeEnergy(20);
         
         if(killedPlayer.energy < 10 && this.energy > 10)
         {
@@ -185,7 +157,8 @@ public class Castaway {
     	int diceRoll = (new Random()).nextInt(20);
     	
         Item proposedItem = World.getInstance().getRandomItem();
-    // TODO: Remove 5 energy safely
+        
+        removeEnergy(25);
         
         if (diceRoll == 10) {
         	removeHealth(50);
@@ -201,15 +174,6 @@ public class Castaway {
 			}
         }
     }
-    
-    private void removeHealth(int i) {
-		// TODO Auto-generated method stub
-		if (health - i <= 0) {
-			// TODO: Castaway dies
-		} else {
-			health -= i;
-		}
-	}
 
 	/**
      * Speak with another castaway, increase moral and affinity
@@ -217,51 +181,28 @@ public class Castaway {
      */
     public void speakTo(Castaway player1){
         
-        if(this.energy > 5) {
-            this.energy = this.energy - 5;
-        }
-        else if(this.energy <= 5) {
-            this.energy = 0;
-        }
-        
-        if(this.moral <= 90)
-        {
-            this.setMoral(this.moral + 10);
-        }
-        else if(this.moral > 90)
-        {
-            this.setMoral(100);
-        }
-        
-        if(player1.moral <= 90)
-        {
-            player1.setMoral(player1.moral + 10);
-        }
-        else if(player1.moral > 90)
-        {
-            player1.setMoral(100);
-        }
-        
-        if(player1.affinity <= 90)
-        {
-            player1.setAffinity(player1.affinity + 10);
-        }
-        else if(player1.affinity > 90)
-        {
-            player1.setAffinity(100);
-        }
+    	this.removeEnergy(5);
+    	this.addMoral(10);
+    	player1.addMoral(10);
+    	player1.addAffinity(10);
         
         if(player1.moral >= 50)
         {
-            Gui.display("- How are you ? \t- I'm fine what about you ? \t- Me too, thanks ! ");
+            Gui.display("- How are you ?");
+            Gui.display("- I'm fine what about you ?");
+            Gui.display("- Me too, thanks!");
         }
         else if(player1.moral < 50 && player1.moral > 20)
         {
-            Gui.display("- The weather is pretty good today \t- Ya, but I'm not motivated to do something ... \t- Worry, you'll feel better tomorrow ! ");
+            Gui.display("- The weather is pretty good today");
+            Gui.display("- Ya, but I'm not motivated to do anything ...");
+            Gui.display("- Don't worry, you'll feel better tomorrow!");
         }
         else if(player1.moral <= 20)
         {
-            Gui.display("- You seem to be bad, you okay ?? \t- Yes, I'm tired of being here ... \t- Worry, you'll feel better soon!");
+            Gui.display("- You look bad, you okay ??");
+            Gui.display("- Yes, I'm tired of being here ...");
+            Gui.display("- Worry, you'll feel better soon!");
         }
     }
     
@@ -271,70 +212,53 @@ public class Castaway {
      */
     public void dealWith(Castaway player1){
         if(player1.affinity >= 50){
+        	
+        	this.removeEnergy(5);
         
-            if(player1.moral <= 90)
-            {
-                player1.setMoral(player1.moral + 10);
-            }
-            else if(player1.moral > 90)
-            {
-                player1.setMoral(100);
-            }
-
-            if(this.moral <= 90)
-            {
-                this.setMoral(this.moral + 10);
-            }
-            else if(this.moral > 90)
-            {
-                this.setMoral(100);
-            }
-
-            if(player1.affinity <= 90)
-            {
-                player1.setAffinity(player1.affinity + 10);
-            }
-            else if(player1.affinity > 90)
-            {
-                player1.setAffinity(100);
-            }
+            player1.addMoral(10);
+            this.addMoral(10);
 
             if(player1.inventory.isEmpty())
             {
-                Gui.displayError("Apart from exchanging her clothes, you can't exchange something with this poor guy");
+                Gui.displayError("Apart from exchanging their clothes, you can't exchange something with this poor guy");
             }
             else 
             {
               int itemNumber;
-              Item exchangedItem;
+              Item distantItem, homeItem;
 
               int inventorySize;
               inventorySize = player1.inventory.size();
-              itemNumber = (new Random()).nextInt(inventorySize + 1);
-              exchangedItem = player1.inventory.get(itemNumber);
+              itemNumber = (new Random()).nextInt(inventorySize);
+              distantItem = player1.inventory.get(itemNumber);
 
               Gui.display("This castaway offers exchange:");
-              Gui.display(exchangedItem.getName());
-              Gui.display("Do you accept ? Say Yes to accept, No to deny");
-
-              String answer = SCANNER.next();
-              while (answer.contentEquals("Yes") || answer.contentEquals("No")) {
-
-                Gui.displayInline("Yes or No !");
-                answer = SCANNER.next();
-                }
-              if(answer.contentEquals("Yes")){
+              Gui.display(distantItem.getName());
+              Gui.display("Do you accept ? (Y/n) ");
+              boolean answer = Gui.promptYesNoQuestion(SCANNER);
+              if (answer == true) {
+                  player1.addAffinity(10);
+            	  
+            	  displayInventory();
                   Gui.display("Enter the number of the object you want to exchange");
                   int answerInt = SCANNER.nextInt();
                   while(answerInt <= 0 || answerInt > this.inventory.size()){
                       Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
                   }
-              this.inventory.add(exchangedItem);
-              player1.inventory.remove(itemNumber);
-              exchangedItem = this.inventory.get(answerInt);
-              player1.inventory.add(exchangedItem);
-              this.inventory.remove(answerInt);
-              Gui.display("Exchange done");
+                  homeItem = this.inventory.get(answerInt - 1);
+	              this.inventory.add(distantItem);
+	              player1.inventory.remove(distantItem);
+	              player1.inventory.add(homeItem);
+	              this.inventory.remove(homeItem);
+	              if (homeItem.isFood()) {
+	            	  Food food = (Food) homeItem;
+	            	  if (food.isRotten()) {
+	            		  player1.removeAffinity(30); // Actually removes 20
+	            	  }
+	              }
+	              Gui.display("Exchange done");
+              } else {
+            	  player1.removeAffinity(10);
               }
             }
         } else {
@@ -404,7 +328,14 @@ public class Castaway {
 	    	
 	    	Gui.display("Hero's inventory");
 	    	for (Item item : inventory) {
-	    		Gui.display((i++ + 1) + ". " + item.getName());
+	    		String rotten = new String("");
+	    		if (item.isFood()) {
+	    			Food food = (Food) item;
+	    			if (food.isRotten()) {
+	    				rotten = " (rotten)";
+	    			}
+	    		}
+	    		Gui.display((i++ + 1) + ". " + item.getName() + rotten);
 	    	}
     	}
     }
@@ -419,7 +350,60 @@ public class Castaway {
             this.health = health;
         }
     }
+    
+    /**
+     * Add health to the castaway
+     * @param health the health to add
+     */
+    public void addHealth(int health) {
+    	if (health > 0) {
+	    	if ((this.health + health) > 100) {
+	    		this.health = 100;
+	    	} else {
+	    		this.health += health;
+	    	}
+    	}
+    }
+    
+    public void removeHealth(int i) {
+		// TODO Auto-generated method stub
+		if (i > 0) {
+	    	if (health - i <= 0) {
+	    		World.getInstance().castawayDeath(this);
+			} else {
+				health -= i;
+			}
+		}
+	}
 
+    /**
+     * Add an amount of energy to the castaway
+     * @param energy the energy to add
+     */
+    public void addEnergy(int energy) {
+    	if (energy > 0) {
+	    	if ((this.energy + energy) > 100) {
+	    		this.energy = 100;
+	    	} else {
+	    		this.energy += energy;
+	    	}
+    	}
+    }
+    
+    /**
+     * Remove an amount of energy to the castaway
+     * @param energy the energy to remove
+     */
+    public void removeEnergy(int energy) {
+    	if (energy > 0) {
+    		if ((this.energy - energy) < 0) {
+    			this.energy = 0;
+    		} else {
+    			this.energy -= energy;
+    		}
+    	}
+    }
+    
     /**
      * Set the energy of the castaway
      * @param energy the energy to set
@@ -438,6 +422,34 @@ public class Castaway {
         if(moral >= 0 && moral <= 100){
             this.moral = moral;
         } 
+    }
+    
+    /**
+     * Add an amount of moral to the castaway
+     * @param moral the moral to add
+     */
+    public void addMoral(int moral) {
+    	if (moral > 0) {
+	    	if ((this.moral + moral) > 100) {
+	    		this.moral = 100;
+	    	} else {
+	    		this.moral += moral;
+	    	}
+    	}
+    }
+    
+    /**
+     * Remove an amount of moral to the castaway
+     * @param moral the moral to remove
+     */
+    public void removeMoral(int moral) {
+    	if (moral > 0) {
+    		if ((this.moral - moral) < 0) {
+    			this.moral = 0;
+    		} else {
+    			this.moral -= moral;
+    		}
+    	}
     }
 
     /**
@@ -462,6 +474,34 @@ public class Castaway {
         } else {
             throw new InventoryOutOfRange();
         }
+    }
+    
+    /**
+     * Add affinity to the castaway towards the hero
+     * @param affinity the affinity to add
+     */
+    public void addAffinity(int affinity) {
+    	if (affinity > 0) {
+	    	if ((this.affinity + affinity) > 100) {
+	    		this.affinity = 100;
+	    	} else {
+	    		this.affinity += affinity;
+	    	}
+    	}
+    }
+    
+    /**
+     * Remove an amount of affinity to the castaway
+     * @param affinity the affinity to remove
+     */
+    public void removeAffinity(int affinity) {
+    	if (energy > 0) {
+    		if ((this.affinity - affinity) < 0) {
+    			this.affinity = 0;
+    		} else {
+    			this.affinity -= affinity;
+    		}
+    	}
     }
 
     /**

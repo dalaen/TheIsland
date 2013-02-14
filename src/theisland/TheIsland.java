@@ -28,12 +28,15 @@ public class TheIsland {
     	final Castaway HERO = WORLD.getHero();
         
         if (WORLD.isNew()) {
-        	// TODO: Prompt user which mode he want to play
         	History.displayIntroduction(Mode.SOLO);
         }
         
         while (WORLD.getNumberOfCastaway() > 1) {
         	Action whatToDo = null;
+
+        	Save.getInstance().saveWorldData(WORLD);
+        	Save.getInstance().saveAllCharacterData(WORLD);
+        	
         	Gui.displayHud(HERO, WORLD);
         	// Utiliser un objet
         	// Manger un objet
@@ -54,7 +57,10 @@ public class TheIsland {
         			Gui.display("Too bad! Your inventory is empty!");
         		} else {
 	        		Gui.displayInline("What do you want to use? ");
-	        		int choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
+	        		int choice = 0;
+	        		do {
+	        			choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
+	        		} while (choice < 0 || choice > (HERO.getInventory().size() - 1));
 	        		// TODO: Change this function to use()
 	        		HERO.getInventory().get(choice).eat();
         		}
@@ -64,31 +70,56 @@ public class TheIsland {
         			Gui.display("Too bad! Your inventory is empty!");
         		} else {
 	        		Gui.displayInline("What do you want to eat? ");
-	        		int choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
-	        		// TODO: Change this function to use()
+	        		int choice = 0;
+	        		do {
+	        			choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
+	        		} while (choice < 0 || choice > (HERO.getInventory().size() - 1));
 	        		HERO.getInventory().get(choice).eat();
+	        		HERO.getInventory().remove(choice);
         		}
         	} else if (whatToDo.equals(Action.LOOKFOR)) {
         		HERO.lookForItem();
         	} else if (whatToDo.equals(Action.SPEAK)) {
         		Gui.displayCastaways(WORLD);
-        	}
-        	else if (whatToDo.equals(Action.SLEEP)) {
-        		// TODO: Last thing to do
+        		Gui.displayInline("Who do you want to speak to? ");
+        		int choice = 0;
+        		do {
+        			choice = SCANNER.nextInt();
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
+        		HERO.speakTo(WORLD.getCastaway(choice));
+        	} else if (whatToDo.equals(Action.STEAL)) {
+        		Gui.displayCastaways(WORLD);
+        		Gui.displayInline("Who do you want to steal from? ");
+        		int choice = 0;
+        		do {
+        			choice = SCANNER.nextInt();
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
+        		HERO.steal(WORLD.getCastaway(choice));
+        	} else if (whatToDo.equals(Action.TRADE)) {
+        		Gui.displayCastaways(WORLD);
+        		Gui.displayInline("Who do you want to trade with? ");
+        		int choice = 0;
+        		do {
+        			choice = SCANNER.nextInt();
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
+        		HERO.dealWith(WORLD.getCastaway(choice));
+        	} else if (whatToDo.equals(Action.THROW)) {
+        		HERO.displayInventory();
+        		if (HERO.getInventory().isEmpty()) {
+        			Gui.display("Too bad! Your inventory is empty!");
+        		} else {
+	        		Gui.displayInline("What do you want to use? ");
+	        		int choice = 0;
+	        		do {
+	        			choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
+	        		} while (choice < 0 || choice > (HERO.getInventory().size() - 1));
+	        		HERO.deleteItemFromInventory(HERO.getInventory().get(choice));
+        		}
+        	} else if (whatToDo.equals(Action.SLEEP)) {
         		WORLD.nextDay();
         	}
         }
         
-        Save.getInstance().saveWorldData(WORLD);
-        
-        //World.getInstance().getHero().createRandomInventory();
-        
-        /*Gui.display("There are "+ World.getInstance().getNumberOfCastaway() + " castaway on your island.");
-        World.getInstance().printWeather();
-        World.getInstance().nextDay();
-        World.getInstance().printWeather();*/
-        
-        Save.getInstance().saveAllCharacterData(WORLD);
         SCANNER.close();
         //World.getInstance().getHero().displayInventory();
     }

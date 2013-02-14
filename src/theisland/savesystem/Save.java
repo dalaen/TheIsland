@@ -36,7 +36,6 @@ public final class Save implements Savable {
 		if (character.isHero()) {
 			prefix = "hero.";
 		} else {
-			// TODO: Include all castaway_, not only the first one
 			prefix = "castaway_" + characterId + ".";
 		}
 		save.setProperty(prefix + "name", character.getName());
@@ -44,8 +43,7 @@ public final class Save implements Savable {
 		save.setProperty(prefix + "energy", new Integer(character.getEnergy()).toString());
 		save.setProperty(prefix + "moral", new Integer(character.getMoral()).toString());
 		save.setProperty(prefix + "affinity", new Integer(character.getAffinity()).toString());
-		
-		// TODO: Encode in UTF-8... US-ASCII??
+
 		String inventoryOut = new String();
 
 		if (!character.getInventory().isEmpty()) {
@@ -80,7 +78,12 @@ public final class Save implements Savable {
 		save.setProperty("world.weather", world.getWeather().toString());
 		save.setProperty("world.numberOfCastaway", new Integer(world.getNumberOfCastaway()).toString());
 		save.setProperty("world.dayNumber", new Integer(world.getDayNumber()).toString());
-
+		if (world.isCabinBuilt()) {
+			save.setProperty("world.cabinBuilt", "true");
+		} else {
+			save.setProperty("world.cabinBuilt", "false");
+		}
+		
 		write();
 	}
 

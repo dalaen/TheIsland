@@ -12,10 +12,11 @@ public abstract class Food extends Item {
 	 * 
 	 */
 	private static final long serialVersionUID = -978387935297724604L;
-	private boolean isRotten;
+	protected boolean isRotten;
     protected int lifetime;
     
     Food() {
+    	isFood = true;
         lifetime = 0;
         isRotten = true;
     }
@@ -42,7 +43,7 @@ public abstract class Food extends Item {
     /*
      * Is called when the day is shifting. Remove 1 day to the lifetime. Eventually, the food will get rotten.
      */
-    public void decreaseLifeTime() {
+    public void decreaseLifetime() {
         lifetime--;
         if (lifetime <= 0) {
             isRotten = true;

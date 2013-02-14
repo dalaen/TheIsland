@@ -2,11 +2,15 @@ package theisland.item.food;
 
 import java.util.Random;
 
+import theisland.gui.Gui;
+import theisland.item.Explodable;
+import theisland.world.World;
+
 /**
  *
  * @author Xavier
  */
-public class ChickenLeg extends Food {
+public class ChickenLeg extends Food implements Explodable {
     /**
 	 * 
 	 */
@@ -34,6 +38,34 @@ public class ChickenLeg extends Food {
      * Eat a chicken leg
      */
     public void eat() {
-        super.eat();
+        if (!explode()) {
+	    	super.eat();
+	        
+	        if (isRotten) {
+	        	World.getInstance().getHero().removeEnergy(15);
+	        	World.getInstance().getHero().removeHealth(15);
+	        	Gui.display("You lost 15 energy and health! Ay...");
+	        } else {
+	        	World.getInstance().getHero().addEnergy(20);
+	        	Gui.display("You gained 20 energy!");
+	        }
+        }
     }
+
+	@Override
+	public boolean explode() {
+		int diceRoll = (new Random()).nextInt(15);
+		
+		if (diceRoll == 7) { // 1 chance upon 15
+			World.getInstance().getHero().removeEnergy(15);
+			World.getInstance().getHero().removeHealth(60);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void use() {
+		this.eat();
+	}
 }

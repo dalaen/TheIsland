@@ -54,8 +54,6 @@ public final class Load implements Loadable {
 		// Handle world properties
 		prefix = "world.";
 
-		// TODO: Add security to loaded values (do they exist?)
-
 		// Get the weather
 		// If none, default weather will be loaded
 		if (save.containsKey(prefix + "weather")) {
@@ -79,6 +77,15 @@ public final class Load implements Loadable {
 			} catch (InvalidDayNumber e) {
 				save.remove(prefix + "dayNumber");
 				e.printStackTrace();
+			}
+		}
+		
+		// Get the cabin state
+		if (save.containsKey(prefix + "cabinBuilt")) {
+			if (save.getProperty(prefix + "cabinBuilt").equals("true")) {
+				World.getInstance().setCabinBuilt(true);
+			} else if (save.getProperty(prefix + "cabinBuilt").equals("false")) {
+				World.getInstance().setCabinBuilt(false);
 			}
 		}
 
