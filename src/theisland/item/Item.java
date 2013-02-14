@@ -2,6 +2,9 @@ package theisland.item;
 
 import java.io.Serializable;
 
+import theisland.castaway.Castaway;
+import theisland.world.World;
+
 /**
  *
  * @author Xavier
@@ -12,6 +15,7 @@ public abstract class Item implements Serializable {
 	 */
 	private static final long serialVersionUID = -3377128896015718496L;
 	private String name;
+	protected final Castaway HERO = World.getInstance().getHero();
     
     /**
      * Eat the item. If the item is not eatable, this must produce a message!
