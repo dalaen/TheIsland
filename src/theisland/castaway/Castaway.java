@@ -212,6 +212,7 @@ public class Castaway {
      * @param player1 Castaway you want to deal with
      */
     public void dealWith(Castaway player1){
+    	// TODO: BUG
         if(player1.affinity >= 50){
         	
         	this.removeEnergy(5);
@@ -226,15 +227,15 @@ public class Castaway {
             else 
             {
               int itemNumber;
-              Item exchangedItem;
+              Item distantItem, homeItem;
 
               int inventorySize;
               inventorySize = player1.inventory.size();
               itemNumber = (new Random()).nextInt(inventorySize);
-              exchangedItem = player1.inventory.get(itemNumber);
+              distantItem = player1.inventory.get(itemNumber);
 
               Gui.display("This castaway offers exchange:");
-              Gui.display(exchangedItem.getName());
+              Gui.display(distantItem.getName());
               Gui.display("Do you accept ? (Y/n) ");
               boolean answer = Gui.promptYesNoQuestion(SCANNER);
               if (answer == true) {
@@ -246,11 +247,17 @@ public class Castaway {
                   while(answerInt <= 0 || answerInt > this.inventory.size()){
                       Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
                   }
-	              this.inventory.add(exchangedItem);
-	              player1.inventory.remove(itemNumber);
-	              exchangedItem = this.inventory.get(answerInt);
-	              player1.inventory.add(exchangedItem);
-	              this.inventory.remove(answerInt);
+                  homeItem = this.inventory.get(answerInt - 1);
+	              this.inventory.add(distantItem);
+	              player1.inventory.remove(distantItem);
+	              player1.inventory.add(homeItem);
+	              this.inventory.remove(homeItem);
+	              if (homeItem.isFood()) {
+	            	  Food food = (Food) homeItem;
+	            	  if (food.isRotten()) {
+	            		  player1.removeAffinity(30); // Actually removes 20
+	            	  }
+	              }
 	              Gui.display("Exchange done");
               } else {
             	  player1.removeAffinity(10);
