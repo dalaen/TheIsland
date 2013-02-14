@@ -75,8 +75,8 @@ public class TheIsland {
 	        		do {
 	        			choice = SCANNER.nextInt() - 1; // Don't forget -1 for array handling
 	        		} while (choice < 0 || choice > (HERO.getInventory().size() - 1));
-	        		// TODO: Change this function to use()
 	        		HERO.getInventory().get(choice).eat();
+	        		HERO.getInventory().remove(choice);
         		}
         	} else if (whatToDo.equals(Action.LOOKFOR)) {
         		HERO.lookForItem();
