@@ -45,7 +45,7 @@ public class Gui {
      * @param hero the hero to display its details
      */
     public static void displayHud(Castaway hero, World world) {
-    	display("Day " + world.getDayNumber() + " (" + world.getWeather().toString() + ") – [Health]" + hero.getHealth() + " [Energy]" + hero.getEnergy() + " [Moral]" + hero.getMoral());
+    	display("Day " + world.getDayNumber() + " (" + world.getWeather().toString() + ") - [Health]" + hero.getHealth() + " [Energy]" + hero.getEnergy() + " [Moral]" + hero.getMoral());
     }
     
     /**
