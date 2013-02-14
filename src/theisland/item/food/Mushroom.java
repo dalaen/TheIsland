@@ -2,6 +2,9 @@ package theisland.item.food;
 
 import java.util.Random;
 
+import theisland.gui.Gui;
+import theisland.world.World;
+
 /**
  *
  * @author Xavier
@@ -36,5 +39,14 @@ public class Mushroom extends Food {
      */
     public void eat() {
         super.eat();
+        
+        if (isRotten) {
+        	World.getInstance().getHero().removeEnergy(15);
+        	World.getInstance().getHero().removeHealth(50);
+        	Gui.display("You lost 15 energy and 50 health! Ay...");
+        } else {
+        	World.getInstance().getHero().addEnergy(10);
+        	Gui.display("You gained 10 energy!");
+        }
     }
 }
