@@ -96,7 +96,7 @@ public class Gui {
      */
     public static void displayCastaways(World world) {
     	for (int i = 1 ; i < world.getNumberOfCastaway() ; i++) {
-    		Gui.display(i + ". " + world.getCastaway(i).getName());
+    		Gui.display(i + ". " + world.getCastaway(i).getName() + " (affinity: " + world.getCastaway(i).getAffinity() + ")");
     	}
     }
 }
