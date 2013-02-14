@@ -162,10 +162,10 @@ public class Castaway {
      * @param killedPlayer Castaway to kill
      */
     public void kill(Castaway killedPlayer){
-        if(this.energy > 5) {
-            this.energy = this.energy - 5;
+        if(this.energy > 20) {
+            this.energy = this.energy - 20;
         }
-        else if(this.energy <= 5) {
+        else if(this.energy <= 20) {
             this.energy = 0;
         }
         
