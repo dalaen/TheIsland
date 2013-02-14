@@ -7,6 +7,7 @@ import java.util.Scanner;
 import theisland.castaway.exception.*;
 import theisland.gui.Gui;
 import theisland.item.Item;
+import theisland.item.food.Food;
 import theisland.world.World;
 
 /**
@@ -212,11 +213,11 @@ public class Castaway {
      */
     public void dealWith(Castaway player1){
         if(player1.affinity >= 50){
+        	
+        	this.removeEnergy(5);
         
             player1.addMoral(10);
             this.addMoral(10);
-
-            player1.addAffinity(10);
 
             if(player1.inventory.isEmpty())
             {
@@ -234,26 +235,25 @@ public class Castaway {
 
               Gui.display("This castaway offers exchange:");
               Gui.display(exchangedItem.getName());
-              Gui.display("Do you accept ? Say Yes to accept, No to deny");
-
-              String answer = SCANNER.next();
-              while (answer.contentEquals("Yes") || answer.contentEquals("No")) {
-
-                Gui.displayInline("Yes or No !");
-                answer = SCANNER.next();
-                }
-              if(answer.contentEquals("Yes")){
+              Gui.display("Do you accept ? (Y/n) ");
+              boolean answer = Gui.promptYesNoQuestion(SCANNER);
+              if (answer == true) {
+                  player1.addAffinity(10);
+            	  
+            	  displayInventory();
                   Gui.display("Enter the number of the object you want to exchange");
                   int answerInt = SCANNER.nextInt();
                   while(answerInt <= 0 || answerInt > this.inventory.size()){
                       Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
                   }
-              this.inventory.add(exchangedItem);
-              player1.inventory.remove(itemNumber);
-              exchangedItem = this.inventory.get(answerInt);
-              player1.inventory.add(exchangedItem);
-              this.inventory.remove(answerInt);
-              Gui.display("Exchange done");
+	              this.inventory.add(exchangedItem);
+	              player1.inventory.remove(itemNumber);
+	              exchangedItem = this.inventory.get(answerInt);
+	              player1.inventory.add(exchangedItem);
+	              this.inventory.remove(answerInt);
+	              Gui.display("Exchange done");
+              } else {
+            	  player1.removeAffinity(10);
               }
             }
         } else {
@@ -324,7 +324,14 @@ public class Castaway {
 	    	Gui.display("Hero's inventory");
 	    	for (Item item : inventory) {
 	    		// TODO: Display if rotten
-	    		Gui.display((i++ + 1) + ". " + item.getName());
+	    		String rotten = new String("");
+	    		if (item.isFood()) {
+	    			Food food = (Food) item;
+	    			if (food.isRotten()) {
+	    				rotten = " (rotten)";
+	    			}
+	    		}
+	    		Gui.display((i++ + 1) + ". " + item.getName() + rotten);
 	    	}
     	}
     }
