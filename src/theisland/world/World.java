@@ -118,7 +118,7 @@ public final class World {
      */
     public void nextDay() {
     	int diceRoll;
-    	getHero().addEnergy(10);
+    	getHero().addEnergy(30);
     	
     	for (Item item : getHero().getInventory()) {
     		if (item.isFood()) {
@@ -137,17 +137,25 @@ public final class World {
     		}
     	}
     	
+    	if (cabinBuilt) {
+    		getHero().addMoral(15);
+    	}
+    	
     	// New weather to the next day
         diceRoll = (new Random()).nextInt(100);
         // Odds: 50% SUN, 16% RAIN, 17% SNOW, 17% STORM 
         if (diceRoll >= 83) {
             changeWeather(Weather.STORM);
+            getHero().removeHealth(20);
         } else if (diceRoll < 83 && diceRoll >= 66) {
             changeWeather(Weather.SNOW);
+            getHero().removeEnergy(20);
         } else if (diceRoll < 66 && diceRoll >= 50) {
             changeWeather(Weather.RAIN);
+            getHero().removeMoral(20);
         } else {
             changeWeather(Weather.SUN);
+            getHero().addMoral(10);
         }
         dayNumber++;
     }
@@ -312,6 +320,7 @@ public final class World {
 
 	private void gameOver() {
 		Gui.display("You are dead... Ahahahah");
+		System.exit(0);
 	}
 
 	/**
@@ -322,16 +331,23 @@ public final class World {
 		int requiredNumberOfWood = 2;
 		int requiredNumberOfStone = 1;
 		
+		ArrayList<Item> linkToItems = new ArrayList<Item>();
+		
 		for (Item item : getHero().getInventory()) {
 			if (item.getClass() == Wood.class) {
 				requiredNumberOfWood--;
+				linkToItems.add(item);
 			} else if (item.getClass() == Stone.class) {
 				requiredNumberOfStone--;
+				linkToItems.add(item);
 			}
 		}
 		
 		if (requiredNumberOfWood <= 0 && requiredNumberOfStone <= 0) {
 			cabinBuilt = true;
+			for (Item item : linkToItems) {
+				getHero().deleteItemFromInventory(item);
+			}
 		}
 	}
 	
