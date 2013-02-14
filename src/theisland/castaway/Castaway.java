@@ -4,8 +4,6 @@ package theisland.castaway;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import theisland.castaway.exception.*;
 import theisland.gui.Gui;
 import theisland.item.Item;
@@ -215,36 +213,14 @@ public class Castaway {
     public void dealWith(Castaway player1){
         if(player1.affinity >= 50){
         
-            if(player1.moral <= 90)
-            {
-                player1.setMoral(player1.moral + 10);
-            }
-            else if(player1.moral > 90)
-            {
-                player1.setMoral(100);
-            }
+            player1.addMoral(10);
+            this.addMoral(10);
 
-            if(this.moral <= 90)
-            {
-                this.setMoral(this.moral + 10);
-            }
-            else if(this.moral > 90)
-            {
-                this.setMoral(100);
-            }
-
-            if(player1.affinity <= 90)
-            {
-                player1.setAffinity(player1.affinity + 10);
-            }
-            else if(player1.affinity > 90)
-            {
-                player1.setAffinity(100);
-            }
+            player1.addAffinity(10);
 
             if(player1.inventory.isEmpty())
             {
-                Gui.displayError("Apart from exchanging her clothes, you can't exchange something with this poor guy");
+                Gui.displayError("Apart from exchanging their clothes, you can't exchange something with this poor guy");
             }
             else 
             {
@@ -253,7 +229,7 @@ public class Castaway {
 
               int inventorySize;
               inventorySize = player1.inventory.size();
-              itemNumber = (new Random()).nextInt(inventorySize + 1);
+              itemNumber = (new Random()).nextInt(inventorySize);
               exchangedItem = player1.inventory.get(itemNumber);
 
               Gui.display("This castaway offers exchange:");
