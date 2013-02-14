@@ -28,7 +28,6 @@ public class TheIsland {
     	final Castaway HERO = WORLD.getHero();
         
         if (WORLD.isNew()) {
-        	// TODO: Prompt user which mode he want to play
         	History.displayIntroduction(Mode.SOLO);
         }
         
@@ -120,16 +119,6 @@ public class TheIsland {
         		WORLD.nextDay();
         	}
         }
-        
-        
-        
-        //World.getInstance().getHero().createRandomInventory();
-        
-        /*Gui.display("There are "+ World.getInstance().getNumberOfCastaway() + " castaway on your island.");
-        World.getInstance().printWeather();
-        World.getInstance().nextDay();
-        World.getInstance().printWeather();*/
-        
         
         SCANNER.close();
         //World.getInstance().getHero().displayInventory();

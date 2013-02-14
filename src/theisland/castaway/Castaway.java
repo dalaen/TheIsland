@@ -186,7 +186,6 @@ public class Castaway {
     	player1.addMoral(10);
     	player1.addAffinity(10);
         
-    	// TODO: Improve this part
         if(player1.moral >= 50)
         {
             Gui.display("- How are you ?");
@@ -212,7 +211,6 @@ public class Castaway {
      * @param player1 Castaway you want to deal with
      */
     public void dealWith(Castaway player1){
-    	// TODO: BUG
         if(player1.affinity >= 50){
         	
         	this.removeEnergy(5);
@@ -330,7 +328,6 @@ public class Castaway {
 	    	
 	    	Gui.display("Hero's inventory");
 	    	for (Item item : inventory) {
-	    		// TODO: Display if rotten
 	    		String rotten = new String("");
 	    		if (item.isFood()) {
 	    			Food food = (Food) item;
@@ -372,7 +369,7 @@ public class Castaway {
 		// TODO Auto-generated method stub
 		if (i > 0) {
 	    	if (health - i <= 0) {
-				// TODO: Castaway dies
+	    		World.getInstance().castawayDeath(this);
 			} else {
 				health -= i;
 			}
