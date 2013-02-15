@@ -152,12 +152,14 @@ public class Castaway {
 	public void kill(Castaway killedPlayer) {
 		removeEnergy(20);
 
-		if (killedPlayer.energy < 10 && this.energy > 10) {
-			killedPlayer.setHealth(0);
-			killedPlayer.setEnergy(0);
+		if (this.energy >= 80 && this.health >= 80) {
+			World.getInstance().castawayDeath(killedPlayer);
+			setEnergy(100);
+			removeHealth(20);
+			removeMoral(50);
 			Gui.display("May he soul rest in Peace ...");
 		} else {
-			Gui.displayError("Are you nuts ??!!");
+			Gui.displayError("Are you nuts ??!! You are too weak for this!");
 		}
 	}
 
@@ -218,55 +220,59 @@ public class Castaway {
 	 * @param player1 Castaway you want to deal with
 	 */
 	public void dealWith(Castaway player1) {
-		if (player1.affinity >= 50) {
-
-			this.removeEnergy(5);
-
-			player1.addMoral(10);
-			this.addMoral(10);
-
-			if (player1.inventory.isEmpty()) {
-				Gui.displayError("Apart from exchanging their clothes, you can't exchange something with this poor guy");
-			} else {
-				int itemNumber;
-				Item distantItem, homeItem;
-
-				int inventorySize;
-				inventorySize = player1.inventory.size();
-				itemNumber = (new Random()).nextInt(inventorySize);
-				distantItem = player1.inventory.get(itemNumber);
-
-				Gui.display("This castaway offers exchange:");
-				Gui.display(distantItem.getName());
-				Gui.display("Do you accept ? (Y/n) ");
-				boolean answer = Gui.promptYesNoQuestion(SCANNER);
-				if (answer == true) {
-					player1.addAffinity(10);
-
-					displayInventory();
-					Gui.display("Enter the number of the object you want to exchange");
-					int answerInt = SCANNER.nextInt();
-					while (answerInt <= 0 || answerInt > this.inventory.size()) {
-						Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
-					}
-					homeItem = this.inventory.get(answerInt - 1);
-					this.inventory.add(distantItem);
-					player1.inventory.remove(distantItem);
-					player1.inventory.add(homeItem);
-					this.inventory.remove(homeItem);
-					if (homeItem.isFood()) {
-						Food food = (Food) homeItem;
-						if (food.isRotten()) {
-							player1.removeAffinity(30); // Actually removes 20
-						}
-					}
-					Gui.display("Exchange done");
+		if (!this.inventory.isEmpty()) {
+			if (player1.affinity >= 50) {
+	
+				this.removeEnergy(5);
+	
+				player1.addMoral(10);
+				this.addMoral(10);
+	
+				if (player1.inventory.isEmpty()) {
+					Gui.displayError("Apart from exchanging their clothes, you can't exchange something with this poor guy");
 				} else {
-					player1.removeAffinity(10);
+					int itemNumber;
+					Item distantItem, homeItem;
+	
+					int inventorySize;
+					inventorySize = player1.inventory.size();
+					itemNumber = (new Random()).nextInt(inventorySize);
+					distantItem = player1.inventory.get(itemNumber);
+	
+					Gui.display("This castaway offers exchange:");
+					Gui.display(distantItem.getName());
+					Gui.display("Do you accept ? (Y/n) ");
+					boolean answer = Gui.promptYesNoQuestion(SCANNER);
+					if (answer == true) {
+						player1.addAffinity(10);
+	
+						displayInventory();
+						Gui.display("Enter the number of the object you want to exchange");
+						int answerInt = SCANNER.nextInt();
+						while (answerInt <= 0 || answerInt > this.inventory.size()) {
+							Gui.display("First solution : You piss me off, second solution : You don't know how to read .. Try again!");
+						}
+						homeItem = this.inventory.get(answerInt - 1);
+						this.inventory.add(distantItem);
+						player1.inventory.remove(distantItem);
+						player1.inventory.add(homeItem);
+						this.inventory.remove(homeItem);
+						if (homeItem.isFood()) {
+							Food food = (Food) homeItem;
+							if (food.isRotten()) {
+								player1.removeAffinity(30); // Actually removes 20
+							}
+						}
+						Gui.display("Exchange done");
+					} else {
+						player1.removeAffinity(10);
+					}
 				}
+			} else {
+				Gui.display("You can't deal with him because your affinity is too low");
 			}
 		} else {
-			Gui.display("You can't deal with him because your affinity is too low");
+			Gui.displayError("You have nothing to trade.");
 		}
 	}
 
