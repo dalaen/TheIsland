@@ -4,8 +4,9 @@
 package theisland;
 
 /**
- * @author xavier
  * Different actions to make during a classical day
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public enum Action {
 	USE,

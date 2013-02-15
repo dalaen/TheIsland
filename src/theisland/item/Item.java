@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * The Item class is the master class for any items created in the game.
  * It may implement the Serializable interface if you wish to save in a file your current set of item.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public abstract class Item implements Serializable {
     /**

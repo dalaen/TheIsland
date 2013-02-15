@@ -11,7 +11,8 @@ import theisland.world.World;
 
 /**
  *
- * @author Xavier Poirot
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class TheIsland {
 	

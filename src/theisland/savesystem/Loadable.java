@@ -2,7 +2,8 @@ package theisland.savesystem;
 
 /**
  * The interface Loadable must be implemented in order to make a system that can load the game
- * @author xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  *
  */
 

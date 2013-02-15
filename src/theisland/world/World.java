@@ -19,7 +19,8 @@ import theisland.world.exception.*;
 
 /**
  * The World class handles everything about the game. It manages the world the character and the other castaways are evolving in.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public final class World {
     private static final Scanner SCANNER = new Scanner(System.in);

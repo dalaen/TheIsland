@@ -2,7 +2,8 @@ package theisland.item;
 
 /**
  * The Explodable interface implements the ability to explode to an item. This item can be anything, be creative!
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public interface Explodable {
     /**

@@ -8,7 +8,8 @@ import theisland.gui.Gui;
 
 /**
  * The NameOutOfRange exception occurs when the name of the character is either too short, or exceeds 20 characters.
- * @author isen
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class NameOutOfRange extends Exception {
 

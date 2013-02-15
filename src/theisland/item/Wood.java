@@ -7,8 +7,9 @@ import theisland.gui.Gui;
 import theisland.world.World;
 
 /**
- * @author xavier
- * A piece of Wood that can be used to build a cabin.
+ * A piece of Wood that can be used to build a cabin. 
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class Wood extends Item {
 

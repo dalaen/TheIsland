@@ -15,7 +15,8 @@ import theisland.world.World;
 
 /**
  * The Save class manages to save the game data onto the user's hard drive, in order to keep it through the time.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  *
  */
 public final class Save implements Savable {

@@ -8,7 +8,8 @@ import theisland.gui.Gui;
 /**
  * The InvalidMaximumDayNumber exception is called when a invalid maximum day number is set.
  * This generally occurs in the loading phases, if the user manually altered the save file.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  *
  */
 public class InvalidMaximumDayNumber extends Exception {

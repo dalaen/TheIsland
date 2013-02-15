@@ -12,7 +12,8 @@ import theisland.world.World;
 /**
  * This class manages every castaway in the world
  * 
- * @author jeremy
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class Castaway {
 	private int health = 100; // Health between 0 and 100

@@ -7,9 +7,10 @@ import theisland.gui.Gui;
 import theisland.world.World;
 
 /**
- * @author xavier
  * A Stone is a simple piece of rock.
  * This is used in the construction of a cabin.
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class Stone extends Item {
 

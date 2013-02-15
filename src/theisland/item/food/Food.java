@@ -5,7 +5,8 @@ import theisland.item.Item;
 
 /**
  * Master class Food. Every food item in the game must inherit from this class.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public abstract class Food extends Item {
     /**

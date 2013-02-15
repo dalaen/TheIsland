@@ -5,7 +5,8 @@ import theisland.world.World;
 
 /**
  * The Savable interface must be implemented in order to make a system that can save the game
- * @author xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  *
  */
 public interface Savable {

@@ -7,7 +7,8 @@ import theisland.world.World;
 
 /**
  * The Mushroom is a food item in the game.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class Mushroom extends Food {
     /**

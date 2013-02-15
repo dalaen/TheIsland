@@ -8,7 +8,8 @@ import theisland.world.World;
 
 /**
  * A ChickenLeg is a piece of Food, which can be dangerous and explode.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class ChickenLeg extends Food implements Explodable {
     /**

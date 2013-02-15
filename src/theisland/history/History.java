@@ -10,7 +10,8 @@ import theisland.gui.Gui;
 
 /**
  * The History class is introducing the context to the player when he starts a game.
- * @author isen
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class History {
     

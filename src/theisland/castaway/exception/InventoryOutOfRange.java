@@ -8,7 +8,8 @@ import theisland.gui.Gui;
 
 /**
  * The InventoryOutOfRange exception occurs when you try to add an item in the inventory, and this one is already full.
- * @author isen
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class InventoryOutOfRange extends Exception {
 

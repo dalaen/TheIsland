@@ -21,7 +21,8 @@ import theisland.world.exception.TooManyCastaway;
 
 /**
  * The Load class purpose is to load a saved game from a file, on the user's drive.
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  *
  */
 public final class Load implements Loadable {

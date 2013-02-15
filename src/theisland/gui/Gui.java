@@ -8,7 +8,8 @@ import theisland.world.World;
 
 /**
  * The Gui class handles everything about the user interface
- * @author Xavier
+ * @author Jérémy Huron & Xavier Poirot
+ * @version 1.0
  */
 public class Gui {
 	/**
