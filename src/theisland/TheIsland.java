@@ -110,6 +110,14 @@ public class TheIsland {
         			choice = SCANNER.nextInt();
         		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
         		HERO.dealWith(WORLD.getCastaway(choice));
+        	} else if (whatToDo.equals(Action.KILL)) {
+        		Gui.displayCastaways(WORLD);
+        		Gui.displayInline("Who do you want to trade with? ");
+        		int choice = 0;
+        		do {
+        			choice = SCANNER.nextInt();
+        		} while (choice < 1 || choice >= WORLD.getNumberOfCastaway());
+        		HERO.kill(WORLD.getCastaway(choice));
         	} else if (whatToDo.equals(Action.THROW)) {
         		HERO.displayInventory();
         		if (HERO.getInventory().isEmpty()) {

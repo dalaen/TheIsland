@@ -15,6 +15,7 @@ public enum Action {
 	STEAL,
 	TRADE,
 	THROW,
+	KILL,
 	SLEEP,
 	CST1,
 	CST2,

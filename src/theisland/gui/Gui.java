@@ -60,8 +60,9 @@ public class Gui {
     	Gui.display("4. Speak with someone");
     	Gui.display("5. Steal someone");
     	Gui.display("6. Trade with someone");
-    	Gui.display("7. Throw an item");
-    	Gui.display("8. Sleep until tomorrow");
+    	Gui.display("7. Kill someone");
+    	Gui.display("8. Throw an item");
+    	Gui.display("9. Sleep until tomorrow");
     	Gui.displayInline("What do you want to do now? ");
     	
     	String choice = sc.next();
@@ -73,7 +74,8 @@ public class Gui {
     	case "4": return Action.SPEAK; 
     	case "5": return Action.STEAL; 
     	case "6": return Action.TRADE; 
-    	case "7": return Action.THROW;
+    	case "7": return Action.KILL;
+    	case "8": return Action.THROW;
     	case "morelle": return Action.CST1;
     	case "allain": return Action.CST2;
     	case "isen": return Action.CST3;
