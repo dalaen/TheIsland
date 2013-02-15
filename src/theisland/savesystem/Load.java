@@ -16,6 +16,7 @@ import theisland.gui.Gui;
 import theisland.item.Item;
 import theisland.world.World;
 import theisland.world.exception.InvalidDayNumber;
+import theisland.world.exception.InvalidMaximumDayNumber;
 import theisland.world.exception.TooManyCastaway;
 
 /**
@@ -81,6 +82,16 @@ public final class Load implements Loadable {
 				World.getInstance().setDayNumber(new Integer(save.getProperty(prefix + "dayNumber")));
 			} catch (InvalidDayNumber e) {
 				save.remove(prefix + "dayNumber");
+				e.printStackTrace();
+			}
+		}
+		
+		// Retrieve the maximum day number of the game
+		if (save.containsKey(prefix + "maximumDayNumber")) {
+			try {
+				World.getInstance().setMaximumDayNumber(new Integer(save.getProperty(prefix + "maximumDayNumber")));
+			} catch (NumberFormatException | InvalidMaximumDayNumber e) {
+				save.remove(prefix + "maximumDayNumber");
 				e.printStackTrace();
 			}
 		}

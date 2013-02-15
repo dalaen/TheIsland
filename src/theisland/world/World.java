@@ -27,7 +27,8 @@ public final class World {
 	private static final World INSTANCE = new World();
     
     private final int MAXIMUM_CASTAWAY = 6;
-    private ArrayList<Castaway> castaways = new ArrayList<Castaway>();
+    private int maximumDayNumber; // between 10 and 30 days
+	private ArrayList<Castaway> castaways = new ArrayList<Castaway>();
     private Weather weather = Weather.STORM;
     private int dayNumber = 1;
     private boolean cabinBuilt = false;
@@ -50,11 +51,13 @@ public final class World {
 	    			newGame = false;
 	    		} else {
 	    			promptCastawayNumber();
+	    			maximumDayNumber = (new Random()).nextInt(20) + 10;
 	    		}
 	    	} 
 	    	if (saveCorrupted || !(new File("config.sav").exists())) {
 	            // New game
 	            promptCastawayNumber();
+	            maximumDayNumber = (new Random()).nextInt(20) + 10;
 	    	}
 	    	
 	    	worldCreated = true;
@@ -159,6 +162,10 @@ public final class World {
             getHero().addMoral(10);
         }
         dayNumber++;
+        
+        if (dayNumber == maximumDayNumber) {
+        	endGame();
+        }
     }
     
     /**
@@ -436,4 +443,25 @@ public final class World {
 	public boolean isCabinBuilt() {
 		return cabinBuilt;
 	}
+
+	/**
+	 * 
+	 * @return the day when the game is finished
+	 */
+	public int getMaximumDayNumber() {
+		return maximumDayNumber;
+	}
+	
+    /**
+	 * @param maximumDayNumber the maximumDayNumber to set
+     * @throws InvalidMaximumDayNumber 
+	 */
+	public void setMaximumDayNumber(int maximumDayNumber) throws InvalidMaximumDayNumber {
+		if (maximumDayNumber < 50 && maximumDayNumber >= 10) {
+			this.maximumDayNumber = maximumDayNumber;
+		} else {
+			throw new InvalidMaximumDayNumber();
+		}
+	}
+
 }
