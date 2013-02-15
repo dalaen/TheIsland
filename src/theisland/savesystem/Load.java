@@ -70,6 +70,10 @@ public final class Load implements Loadable {
 		int numberOfCastaway = 1;
 		if (save.containsKey(prefix + "numberOfCastaway")) {
 			numberOfCastaway = new Integer(save.getProperty(prefix + "numberOfCastaway"));
+			if (numberOfCastaway > 6 || numberOfCastaway <= 1) {
+				// Abort loading
+				return true;
+			}
 		} else {
 			// Abort loading if there's no numberOfCastaway
 			return true;
